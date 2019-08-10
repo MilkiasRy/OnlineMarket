@@ -10,13 +10,13 @@ import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor
-//@Entity
+@Entity
 public class Address {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String street;
     private  String city;
-    private  String State;
+    private  String state;
     private String zipcode;
 }

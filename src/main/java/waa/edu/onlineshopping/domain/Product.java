@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-//@Entity
+@Entity
 public class Product {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -21,8 +21,8 @@ public class Product {
     private int quantity;
     private double unitprice;
     private String description;
-    private MultipartFile productpic;
-    @Cascade(CascadeType.ALL)
-    @OneToOne
-    private Company company;
+//    private MultipartFile productpic;
+//    @Cascade(CascadeType.ALL)
+//    @OneToOne
+//    private Seller company;
 }
