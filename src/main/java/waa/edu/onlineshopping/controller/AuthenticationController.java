@@ -13,6 +13,7 @@ import waa.edu.onlineshopping.service.BuyerService;
 import waa.edu.onlineshopping.service.CredentialService;
 import waa.edu.onlineshopping.service.RoleService;
 import waa.edu.onlineshopping.service.SellerService;
+import waa.edu.onlineshopping.util.EmailNotification;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -151,6 +152,10 @@ public class AuthenticationController {
 			System.out.println("NEW PASSWORD " + newPassword);
 			credential.setPassword(bCryptPasswordEncoder.encode(newPassword));
 			credentialService.save(credential);
+			EmailNotification.sendEmail(credential.getEmail(), "Password Resetted" ,
+					"Your new password is: <strong style=\"color:red;\">" + newPassword
+							+ "</strong> <p>Login Page: <a href=\"http://localhost:8080/login\">Online Shopping</a></p>");
+
 			return "{\"success\": \"Password reset successful. Check your email for the new password \"}";
 		}
 

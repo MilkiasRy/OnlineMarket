@@ -11,9 +11,9 @@ import java.util.Properties;
 
 public class EmailNotification {
 
-    public static String sendEmail(String email, String name) {
+    public static String sendEmail(String emailAddress, String subject, String content) {
         try{
-            sendmail(email, name);
+            sendmail(emailAddress, subject, content);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -23,7 +23,7 @@ public class EmailNotification {
     }
 
 
-    private static void sendmail(String email, String name) throws MessagingException {
+    private static void sendmail(String emailAddress, String subject, String content) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -38,15 +38,15 @@ public class EmailNotification {
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress("erishoppers@gmail.com", false));
 
-        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
         // msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-        msg.setSubject("E-Shoppers Order Confirmation");
+        msg.setSubject(subject);
         msg.setContent("E-Shoppers email", "text/html");
         msg.setSentDate(new Date());
 
         MimeBodyPart messageBodyPart = new MimeBodyPart();
         // messageBodyPart.setContent("Tutorials point email", "text/html");
-        messageBodyPart.setContent("Hi " + name +" your order will arrive: " + LocalDate.now().plusDays(3), "text/html");
+        messageBodyPart.setContent(content, "text/html");
 
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(messageBodyPart);

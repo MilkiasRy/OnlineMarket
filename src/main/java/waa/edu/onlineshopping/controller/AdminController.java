@@ -28,7 +28,9 @@ public class AdminController {
         credential.setEnabled(true);
         credentialService.save(credential);
 
-        EmailNotification.sendEmail(credential.getEmail(), credential.getEmail());
+        EmailNotification.sendEmail(credential.getEmail(), "Account Acctivated",
+                "<p>Your account has been approved and activated. You can now login and post your products.</p>" +
+                        "<p>Login Page: <a href=\"http://localhost:8080/login\">Online Shopping</a></p>");
 
         return "redirect:/inactive";
     }
