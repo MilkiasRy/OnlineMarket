@@ -1,50 +1,25 @@
 package waa.edu.onlineshopping.domain;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 @Entity
-@Table(name = "auth_role")
-//@Data
-//@NoArgsConstructor
+@Table(name = "role")
 public class Role {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "auth_role_id")
-	private int id;
 
-	@Column(name = "role_name")
-	private String role;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id")
+    private Long id;
 
-	@Column(name = "role_desc")
-	private String desc;
-
-	public Role() {
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public String getDesc() {
-		return desc;
-	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
+    @Column(name = "role")
+    private String role;
 }

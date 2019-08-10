@@ -16,6 +16,6 @@ public class Review {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String description;
-    private Buyer buyer;
+    private User user;
     private  Product product;
 }

@@ -2,36 +2,35 @@ package waa.edu.onlineshopping.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-//@Entity
+@Entity
 public class Buyer {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    @NotEmpty
-    private String firstName;
-    @NotEmpty
-    private String lastName;
-    @NotEmpty
-    @Size(min=5)
-    private String password;
-    @NotEmpty
-    @Email
-    private String email;
+   @Cascade(CascadeType.ALL)
+    @OneToOne
+    private User user;
+
     private int points;
+
+    @OneToMany
     private List<Address> addresses;
+    @Cascade(CascadeType.ALL)
+    @OneToOne
     private Payment payment;
-    private String role;
+    @OneToOne(mappedBy = "buyer")
+    //@JoinColumn
     private Cart cart;
+//    @OneToOne(mappedBy = "order")
+//    private Order order;
+
 }

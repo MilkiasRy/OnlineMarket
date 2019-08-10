@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-//@Entity
+@Entity
 public class Product {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -20,9 +20,13 @@ public class Product {
     private String model;
     private int quantity;
     private double unitprice;
+    private double discountPrice;
     private String description;
+    @Transient
     private MultipartFile productpic;
-    @Cascade(CascadeType.ALL)
-    @OneToOne
-    private Company company;
+
+    @Cascade({CascadeType.ALL})
+    @JoinColumn(name="SELLER_ID")
+    @ManyToOne (fetch = FetchType.LAZY)
+    private Seller seller;
 }

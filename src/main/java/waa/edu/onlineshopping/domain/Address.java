@@ -10,7 +10,7 @@ import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor
-//@Entity
+@Entity
 public class Address {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
