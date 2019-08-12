@@ -41,6 +41,9 @@ public class AuthenticationController {
 	@Autowired
 	private CredentialService credentialService;
 
+	@Autowired
+	private EmailNotification emailNotification;
+
 	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -107,15 +110,6 @@ public class AuthenticationController {
 		return "redirect:/signup";
 	}
 
-//	@RequestMapping(value = "/register", method = RequestMethod.GET)
-//	public ModelAndView register() {
-//		ModelAndView modelAndView = new ModelAndView();
-//		// User user = new User();
-//		//	 modelAndView.addObject("user", user);
-//		modelAndView.setViewName("signup"); // resources/template/register.html
-//		return modelAndView;
-//	}
-
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView home(Principal user) {
 		System.out.println("CURRENT USER " + user.getName());
@@ -152,7 +146,7 @@ public class AuthenticationController {
 			System.out.println("NEW PASSWORD " + newPassword);
 			credential.setPassword(bCryptPasswordEncoder.encode(newPassword));
 			credentialService.save(credential);
-			EmailNotification.sendEmail(credential.getEmail(), "Password Resetted" ,
+			emailNotification.sendEmail(credential.getEmail(), "Password Resetted" ,
 					"Your new password is: <strong style=\"color:red;\">" + newPassword
 							+ "</strong> <p>Login Page: <a href=\"http://localhost:8080/login\">Online Shopping</a></p>");
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{common/dashboard_layout}">
 
 <head>
 <title>WebEncyclop - Login</title>
@@ -9,6 +10,7 @@
 </head>
 
 <body style="background-color:#ededed;">
+<div class="col" layout:fragment="main-content">
 	<div style="background-color:#337ab7;height:50px;"></div>
 	<div class="container-fluid">
 		<div class="row col-lg-4 col-lg-offset-4" style="margin-top: 80px;background-color:#fff;padding:20px;border:solid 1px #ddd;">
@@ -25,5 +27,6 @@
 			</form>
 		</div>
 	</div>
+</div>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package waa.edu.onlineshopping.util;
 
+import org.springframework.stereotype.Component;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -9,9 +11,10 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Properties;
 
+@Component
 public class EmailNotification {
 
-    public static String sendEmail(String emailAddress, String subject, String content) {
+    public String sendEmail(String emailAddress, String subject, String content) {
         try{
             sendmail(emailAddress, subject, content);
         }catch (Exception e){
@@ -23,7 +26,7 @@ public class EmailNotification {
     }
 
 
-    private static void sendmail(String emailAddress, String subject, String content) throws MessagingException {
+    private void sendmail(String emailAddress, String subject, String content) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");

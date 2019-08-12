@@ -14,7 +14,16 @@ import waa.edu.onlineshopping.util.EmailNotification;
 public class AdminController {
 
     @Autowired
-    CredentialService credentialService;
+    private CredentialService credentialService;
+
+    @Autowired
+    private EmailNotification emailNotification;
+
+    @RequestMapping("/")
+    public String notification(Model model){
+//        model.addAttribute("sellerCredentials", credentialService.findByEnabledFalse());
+        return "home";
+    }
 
     @RequestMapping("/inactive")
     public String sellerAccounts(Model model){
@@ -28,10 +37,16 @@ public class AdminController {
         credential.setEnabled(true);
         credentialService.save(credential);
 
-        EmailNotification.sendEmail(credential.getEmail(), "Account Acctivated",
+        emailNotification.sendEmail(credential.getEmail(), "Account Acctivated",
                 "<p>Your account has been approved and activated. You can now login and post your products.</p>" +
                         "<p>Login Page: <a href=\"http://localhost:8080/login\">Online Shopping</a></p>");
 
         return "redirect:/inactive";
+    }
+
+    @RequestMapping("/pending/reviews")
+    public String pendingReviews(Model model){
+        model.addAttribute("sellerCredentials", credentialService.findByEnabledFalse());
+        return "admin/activateSeller";
     }
 }

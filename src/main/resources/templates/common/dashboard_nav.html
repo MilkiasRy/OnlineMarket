@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="nav">
+    <div class="page-top"
+         style="width: 100%; height: 20px; background-color: #f46b42;"></div>
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/}">LE'S BOOKSTORE</a>
+            </div>
+            <div id="navbar">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown"><a th:href="@{/bookshelf}"
+                                            class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                            aria-haspopup="true" aria-expanded="false">BOOKS <span
+                            class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/bookshelf}">Browse the bookshelf</a></li>
+                            <li><a th:href="@{/hours}">Store hours &#38; Directions</a></li>
+                            <li><a th:href="@{/faq}">FAQ</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown" sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/bookshelf}" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                            aria-haspopup="true" aria-expanded="false">Actions <span
+                            class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/inactive}">Approve Sellers</a></li>
+                            <li><a th:href="@{/pending/reviews}">Approve/Reject Reviews</a></li>
+                            <li><a th:href="@{/faq}">FAQ</a></li>
+
+                        </ul>
+                    </li>
+                    <form class="navbar-form" th:action="@{/searchBook}" method="post">
+                        <div class="form-group">
+                            <input type="text" name="keyword" class="form-control"
+                                   placeholder="Book title" />
+                        </div>
+                        <button type="submit" class="btn btn-default">Search</button>
+                    </form>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li sec:authorize="hasRole('BUYER')"><a th:href="@{/shoppingCart/cart}">SHOPPING CART</a></li>
+                    <li class="dropdown" sec:authorize="hasRole('BUYER')">
+                        <a th:href="@{/bookshelf}" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                            aria-haspopup="true" aria-expanded="false"><sup><span class="badge badge-danger" style="background: red;">4</span></sup>Notifications <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/bookshelf}">Browse the bookshelf</a></li>
+                            <li><a th:href="@{/hours}">Store hours &#38; Directions</a></li>
+                            <li><a th:href="@{/faq}">FAQ</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/bookshelf}" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                            aria-haspopup="true" aria-expanded="false">My Account <span
+                            class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/bookshelf}">Browse the bookshelf</a></li>
+                            <li><a th:href="@{/hours}">Store hours &#38; Directions</a></li>
+                            <li><a th:href="@{/faq}">FAQ</a></li>
+                            <li><a th:href="@{/logout}">Log out</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a sec:authorize="isAnonymous()" th:href="@{/login}">Log In</a></li>
+                    <li><a sec:authorize="isAnonymous()" th:href="@{/signup}">Sign Up</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+    </nav>
+</div>
+
+<!--<nav  th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">-->
+<!--    <a class="navbar-brand" href="/">BloodBank</a>-->
+<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--    </button>-->
+
+<!--    <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--        <ul class="navbar-nav mr-auto">-->
+<!--            <li class="nav-item active">-->
+<!--                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item dropdown" sec:authorize="hasRole('STAFF')" >-->
+<!--                <a class="nav-link dropdown-toggle" href="#" id="donorDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    Donor-->
+<!--                </a>-->
+<!--                <div class="dropdown-menu" aria-labelledby="donorDropdown">-->
+<!--                    <a class="dropdown-item"  href="/donors/add" >Add Donor</a>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <a class="dropdown-item" href="/donors/all">Donors List</a>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li class="nav-item dropdown" sec:authorize="hasRole('STAFF')">-->
+<!--                <a class="nav-link dropdown-toggle" href="#" id="donoationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    Donation-->
+<!--                </a>-->
+<!--                <div class="dropdown-menu" aria-labelledby="donoationDropdown">-->
+<!--                    <a class="dropdown-item"  href="/donations/add">Add Donation</a>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <a class="dropdown-item" href="/donations/all">Donations List</a>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">-->
+<!--                <a class="nav-link dropdown-toggle" href="#" id="bloodDriveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    Blood Drive-->
+<!--                </a>-->
+<!--                <div class="dropdown-menu" aria-labelledby="bloodDriveDropdown">-->
+<!--                    <a class="dropdown-item" href="/bloodDrives/add">Add Blood Drive</a>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <a class="dropdown-item" href="/bloodDrives">Blood Drives List</a>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">-->
+<!--                <a class="nav-link dropdown-toggle" href="#" id="hospitalDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    Hospital-->
+<!--                </a>-->
+<!--                <div class="dropdown-menu" aria-labelledby="hospitalDropdown">-->
+<!--                    <a class="dropdown-item" href="/hospitals/add">Add Hospital</a>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <a class="dropdown-item" href="/hospitals/all">Hospitals List</a>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li class="nav-item dropdown" sec:authorize="isAuthenticated()">-->
+<!--                <a class="nav-link dropdown-toggle" href="#" id="requestDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    Blood Request-->
+<!--                </a>-->
+<!--                <div class="dropdown-menu" aria-labelledby="requestDropdown">-->
+<!--                    <a sec:authorize="hasRole('NURSE')" class="dropdown-item" href="/requests/add">Create Request</a>-->
+<!--                    <a sec:authorize="hasRole('STAFF')"class="dropdown-item" href="/requests/all">Display Requests</a>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--        <span sec:authorize="!isAuthenticated()">-->
+<!--            <a href="/login"  class="btn btn-outline-success my-2 my-sm-0  pull-right">Login</a>-->
+<!--            <a href="/donors/add"  class="btn btn-outline-success my-2 my-sm-0  pull-right">Sign Up</a>-->
+<!--        </span>-->
+<!--        <span sec:authorize="isAuthenticated()">-->
+<!--            <a href="/perform_logout" class="btn btn-outline-success my-2 my-sm-0  pull-right">Logout</a>-->
+<!--        </span>-->
+
+<!--    </div>-->
+<!--</nav>-->
+</body>
+</html>
