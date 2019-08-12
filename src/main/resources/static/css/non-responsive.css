@@ -5,16 +5,16 @@
  */
 
 /* Account for fixed navbar */
-body {
-  padding-top: 70px;
-  padding-bottom: 30px;
-}
+/*body {*/
+  /*padding-top: 70px;*/
+  /*padding-bottom: 30px;*/
+/*}*/
 
-body,
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  min-width: 970px;
-}
+/*body,*/
+/*.navbar-fixed-top,*/
+/*.navbar-fixed-bottom {*/
+  /*min-width: 970px;*/
+/*}*/
 
 /* Don't let the lead text change font-size. */
 .lead {

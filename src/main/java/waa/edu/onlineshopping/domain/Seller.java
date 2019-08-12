@@ -3,6 +3,9 @@ package waa.edu.onlineshopping.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+import javax.persistence.*;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;

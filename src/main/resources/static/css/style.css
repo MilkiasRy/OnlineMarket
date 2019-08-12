@@ -13,16 +13,16 @@ hr {
 	width: 90%;
 }
 
-.banner {
-	background-image: url("/image/bgline.png");
-}
+/*.banner {*/
+	/*background-image: url("/image/bgline.png");*/
+/*}*/
 
 .page-top {
 	margin-top: -70px;
 }
 
 .navbar {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .box {

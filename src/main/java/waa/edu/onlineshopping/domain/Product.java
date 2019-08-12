@@ -3,7 +3,6 @@ package waa.edu.onlineshopping.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -20,13 +19,17 @@ public class Product {
     private String name;
     private String model;
     private int quantity;
-    private double unitprice;
+    private double unitPrice;
+    private double discountPrice;
     private String description;
+    @Transient
+    private MultipartFile productPic;
+
+    @JoinColumn(name="SELLER_ID")
+    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Seller seller;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
-//    private MultipartFile productpic;
-//    @Cascade(CascadeType.ALL)
-//    @OneToOne
-//    private Seller company;
+
 }

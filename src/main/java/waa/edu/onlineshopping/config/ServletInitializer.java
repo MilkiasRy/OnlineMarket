@@ -1,16 +1,16 @@
-package waa.edu.onlineshopping.config;
-
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Configuration;
-import waa.edu.onlineshopping.OnlineshoppingApplication;
-
-@Configuration
-public class ServletInitializer extends SpringBootServletInitializer {
-
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(OnlineshoppingApplication.class);
-	}
-
-}
+//package waa.edu.onlineshopping.config;
+//
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+//import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+//import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+//
+//@Configuration
+//public class ServletInitializer extends WebMvcConfigurerAdapter {
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry
+//                .addResourceHandler("/resources/**")
+//                .addResourceLocations("/resources/");
+//    }
+//}

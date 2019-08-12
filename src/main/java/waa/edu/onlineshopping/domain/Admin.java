@@ -2,11 +2,10 @@ package waa.edu.onlineshopping.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -19,17 +18,12 @@ public class Admin {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    @NotEmpty
-    private String firstName;
-    @NotEmpty
-    private String lastName;
-    @NotEmpty
-    @Size(min=5)
-    private String password;
-    @NotEmpty
-    @Email
-    private String email;
-    private String role;
+    @Cascade(CascadeType.ALL)
+    @OneToOne
+    private User user;
+    //create a query those who are in active
+
+    private List<Seller> sellers;
 
 
 }

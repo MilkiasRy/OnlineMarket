@@ -21,22 +21,25 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public Buyer findById(Long id) {
-        return null;
+    public List<Buyer> findAll() {
+        return (List<Buyer>) buyerRepository.findAll();
     }
 
     @Override
-    public List<Buyer> findAll() {
-        return null;
+    public Buyer findById(Long id) {
+        return buyerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid buyer Id:" + id));
     }
 
     @Override
     public void deleteById(Long id) {
-
+        Buyer buyer=  buyerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid buyer Id:" + id));
+        buyerRepository.delete(buyer);
     }
 
     @Override
     public Buyer findByCredential(Credential credential) {
         return buyerRepository.findByCredential(credential);
     }
+
+
 }

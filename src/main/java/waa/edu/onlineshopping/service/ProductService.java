@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface ProductService {
 
-        public void save(Product product);
+        public Product save(Product product);
         public List<Product> getProducts();
         public Product findById(Long id);
         public void deleteById(Long id);
+
+//        public Long getId();
 }
