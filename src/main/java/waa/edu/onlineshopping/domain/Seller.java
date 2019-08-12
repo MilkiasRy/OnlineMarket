@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -18,6 +19,7 @@ public class Seller {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
     @NotEmpty
     private String name;
     private String securityQuestion;
@@ -35,5 +37,16 @@ public class Seller {
     @Valid
     @OneToOne(cascade = CascadeType.ALL)
     private Credential credential;
+
+    public void addBuyer(Buyer buyer) {
+        if (subscribedBuyers==null) {
+            subscribedBuyers = new ArrayList<Buyer>();
+            subscribedBuyers.add(buyer);
+
+        } else {
+            subscribedBuyers.add(buyer);
+
+        }
+    }
 
 }

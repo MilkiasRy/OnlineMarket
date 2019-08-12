@@ -6,4 +6,6 @@ import waa.edu.onlineshopping.domain.Product;
 @Repository
 public interface ProductRepository extends CrudRepository<Product,Long> {
 
+
+
 }

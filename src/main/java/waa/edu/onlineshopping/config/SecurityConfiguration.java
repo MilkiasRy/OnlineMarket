@@ -76,6 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/home")
                 .usernameParameter("email")
                 .passwordParameter("password")
+                .defaultSuccessUrl("/home")
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
