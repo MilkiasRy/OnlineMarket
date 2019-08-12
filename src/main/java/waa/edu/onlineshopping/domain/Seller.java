@@ -7,6 +7,7 @@ import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -34,7 +35,20 @@ public class Seller {
     @OneToOne
     private User user;
 
-//    @OneToMany(fetch=FetchType.LAZY)
-//    private List<Buyer> buyers;
+    @OneToMany(fetch=FetchType.LAZY)
+    private List<Buyer> buyers;
+
+    public void addBuyer(Buyer buyer) {
+        if (buyers==null) {
+            buyers = new ArrayList<Buyer>();
+            buyers.add(buyer);
+
+        } else {
+            buyers.add(buyer);
+
+        }
+        //  return cartItems;
+    }
+
 
 }
