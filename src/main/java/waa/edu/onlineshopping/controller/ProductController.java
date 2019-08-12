@@ -42,7 +42,7 @@ public class ProductController {
             if(bindingResult.hasErrors()){
                   return "seller/product";
             }
-        MultipartFile memberImage = product.getProductpic();
+        MultipartFile memberImage = product.getProductPic();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
              Product p=productService.save(product);
 

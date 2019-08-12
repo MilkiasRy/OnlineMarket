@@ -110,13 +110,13 @@ public class AuthenticationController {
 		return "redirect:/signup";
 	}
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public ModelAndView home(Principal user) {
-		System.out.println("CURRENT USER " + user.getName());
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("home"); // resources/template/home.html
-		return modelAndView;
-	}
+//	@RequestMapping(value = "/home", method = RequestMethod.GET)
+//	public ModelAndView home(Principal user) {
+//		System.out.println("CURRENT USER " + user.getName());
+//		ModelAndView modelAndView = new ModelAndView();
+//		modelAndView.setViewName("home"); // resources/template/home.html
+//		return modelAndView;
+//	}
 
 	@RequestMapping(value = "/reset/password", method = RequestMethod.GET)
 	public String resetPassword() {

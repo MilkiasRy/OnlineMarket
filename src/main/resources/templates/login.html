@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{common/dashboard_layout}">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head>
+<head th:replace="common/header :: common-header">
 <title>WebEncyclop - Login</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -10,7 +9,8 @@
 </head>
 
 <body style="background-color:#ededed;">
-<div class="col" layout:fragment="main-content">
+<div th:replace="common/header :: navbar" />
+<div class="col">
 	<div style="background-color:#337ab7;height:50px;"></div>
 	<div class="container-fluid">
 		<div class="row col-lg-4 col-lg-offset-4" style="margin-top: 80px;background-color:#fff;padding:20px;border:solid 1px #ddd;">
@@ -28,5 +28,9 @@
 		</div>
 	</div>
 </div>
+
+<div th:replace="common/header :: footer"/>
+
+<div th:replace="common/header :: body-bottom-scripts" />
 </body>
 </html>

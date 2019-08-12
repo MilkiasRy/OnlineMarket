@@ -19,12 +19,6 @@ public class AdminController {
     @Autowired
     private EmailNotification emailNotification;
 
-    @RequestMapping("/")
-    public String notification(Model model){
-//        model.addAttribute("sellerCredentials", credentialService.findByEnabledFalse());
-        return "home";
-    }
-
     @RequestMapping("/inactive")
     public String sellerAccounts(Model model){
         model.addAttribute("sellerCredentials", credentialService.findByEnabledFalse());

@@ -12,11 +12,6 @@ public class LoginController {
         return "redirect:/home";
     }
 
-    @RequestMapping("/home")
-    public String index() {
-        return "home";
-    }
-
     @RequestMapping("/login")
     public String login() {
         System.out.println("Login.....");
