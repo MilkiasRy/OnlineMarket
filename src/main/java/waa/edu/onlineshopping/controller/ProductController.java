@@ -74,7 +74,7 @@ public class ProductController {
 
         model.addAttribute("qtyList", qtyList);
         model.addAttribute("qty", 1);
-           return "buyer/productdetail";
+           return "seller/product";
     }
 
     @GetMapping("/products")

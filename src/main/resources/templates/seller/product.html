@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{common/masterlayout}">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <!-- Bootstrap core CSS -->
 </head>
 
 <body style="font-size: 14px">
-<th:block layout:fragment="content">
+<th:block >
     <form th:action="@{/seller/product}" th:object="${product}" method="post"  enctype="multipart/form-data" >
         <fieldset>
                   <h1 align="center">Add Product</h1>

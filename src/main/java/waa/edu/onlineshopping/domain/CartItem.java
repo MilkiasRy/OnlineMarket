@@ -21,6 +21,10 @@ public class CartItem {
     @JoinColumn(name="cart_cartitem_id")
     private Cart cart;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="order_id")
+    private Orders order;
+
     @Override
     public String toString() {
         return "CartItem{" +

@@ -21,16 +21,16 @@ public class Cart {
     private Long id;
    // @Cascade(CascadeType.ALL)
     @OneToMany(mappedBy="cart",  fetch=FetchType.LAZY)
-    // @JsonIgnore
+    @JsonIgnore
     private List<CartItem> cartItems;
 
-    private Boolean status;
+
 
     @Cascade(CascadeType.ALL)
     @OneToOne
     private Buyer buyer;
 
-    private LocalDate orderdate;
+
 
     private double grandTotal;
 

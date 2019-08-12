@@ -12,6 +12,7 @@ import waa.edu.onlineshopping.repository.CartRepository;
 import waa.edu.onlineshopping.service.BuyerService;
 import waa.edu.onlineshopping.service.CartService;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -89,4 +90,24 @@ public class CartServiceImpl implements CartService {
 
         return cartItemRepository.findByCart(cart);
     }
+
+    @Override
+    public void save(Cart cart) {
+        cartRepository.save(cart);
+    }
+
+    @Override
+    public void clearCart(Cart cart) {
+        List<CartItem> cartItemList = cartItemRepository.findByCart(cart);
+
+        for (CartItem cartItem : cartItemList) {
+            cartItem.setCart(null);
+            cartItemRepository.save(cartItem);
+        }
+
+        cartRepository.delete(cart);
+
+
+    }
+
 }

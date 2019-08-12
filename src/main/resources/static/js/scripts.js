@@ -2,12 +2,13 @@
  * 
  */
 
+
 function checkBillingAddress() {
-	if($("#theSameAsShippingAddress").is(":checked")) {
-		$(".billingAddress").prop("disabled", true);
-	} else {
-		$(".billingAddress").prop("disabled", false);
-	}
+    if($("#theSameAsShippingAddress").is(":checked")) {
+        $(".billingAddress").prop("disabled", true);
+    } else {
+        $(".billingAddress").prop("disabled", false);
+    }
 }
 
 function checkPasswordMatch() {

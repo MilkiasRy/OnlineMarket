@@ -6,6 +6,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,7 +22,7 @@ public class Buyer {
     private User user;
 
     private int points;
-
+    @Cascade(CascadeType.ALL)
     @OneToMany
     private List<Address> addresses;
     @Cascade(CascadeType.ALL)
@@ -30,7 +31,19 @@ public class Buyer {
     @OneToOne(mappedBy = "buyer")
     //@JoinColumn
     private Cart cart;
-//    @OneToOne(mappedBy = "order")
-//    private Order order;
+    @Cascade(CascadeType.ALL)
+    @OneToMany(mappedBy = "buyer")
+    private List<Orders> orderList;
 
+    public void addAddress(Address address) {
+        if (address ==null) {
+            addresses = new ArrayList<Address>();
+            addresses.add(address);
+
+        } else {
+            addresses.add(address);
+
+        }
+
+    }
 }

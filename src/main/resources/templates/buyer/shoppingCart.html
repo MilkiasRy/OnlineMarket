@@ -55,7 +55,8 @@
 					<!--**************** display products in cart ****************-->
 
 					<div class="row" th:each="cartItem : ${cartItemList}">
-						<form th:action="@{/shoppingCart/updateCartItem}" method="post">
+						<!--th:action="@{/shoppingCart/updateCartItem}"-->
+						<form  method="post">
 							<hr />
 							<div class="col-xs-2">
 								<a th:href="@{'/product/'+${cartItem.product.id}}"> <img
@@ -83,17 +84,17 @@
 
 							<div class="col-xs-2">
 								<h5 style="color: #db3208; font-size: large;">
-									$<span th:text="${cartItem.product.unitprice}"
+									$<span th:text="${cartItem.product.discountPrice}"
 										th:style="${cartItem.product.quantity}==0? 'text-decoration: line-through' : ''"></span>
 								</h5>
 							</div>
 
 							<div class="col-xs-2">
 								<input hidden="hidden" name="id" th:value="${cartItem.id}" /> <input
-									th:id="${cartItem.id}" th:name="qty" th:disabled="${cartItem.product.quantity==0}" class="form-control cartItemQty" th:value="${cartItem.quantity}" />
-								<button style="display: none;"
-									th:id="'update-item-'+${cartItem.id}" type="submit"
-									class="btn btn-warning btn-xs">Update</button>
+									th:id="${cartItem.id}"  th:name="qty" th:disabled="${cartItem.product.quantity==0}" class="form-control cartItemQty" th:value="${cartItem.quantity}" />
+								<!--<button style="display: none;"-->
+									<!--th:id="'update-item-'+${cartItem.id}" type="submit"-->
+									<!--class="btn btn-warning btn-xs ">Update</button>-->
 							</div>
 						</form>
 					</div>
@@ -103,7 +104,7 @@
 						<h4 class="col-xs-12 text-right">
 							<strong style="font-size: large;">Total Price (<span
 								th:text="${#lists.size(cartItemList)}"></span> items):
-							</strong> <span style="color: #db3208; font-szie: large;">$<span
+							</strong> <span style="color: #db3208; font-szie: large;">$<span id="grandTotal"
 								th:text="${shoppingCart.grandTotal}"></span></span>
 						</h4>
 					</div>

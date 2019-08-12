@@ -15,4 +15,8 @@ public interface CartService {
 
      List<CartItem> findByCart(Cart cart);
 
+     public void save(Cart cart);
+
+     public void clearCart(Cart cart);
+
 }
