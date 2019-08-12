@@ -55,8 +55,8 @@
 						<!--</form>-->
 					<!--</ul>-->
 					<ul class="nav navbar-nav navbar-right">
-						<li><a sec:authorize="isAuthenticated()" th:href="@{/brands">BRANDS</a></li>
-						<li><a sec:authorize="isAuthenticated()" th:href="@{/notification}">NOTIFICATION</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/buyer/brands}">BRANDS</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/buyer/notification}">NOTIFICATION</a></li>
 						<li><a  th:href="@{/buyer/shoppingCart/cart}">SHOPPING CART</a></li>
 						<li><a sec:authorize="isAnonymous()" th:href="@{/login}">LOG
 								IN</a></li>
