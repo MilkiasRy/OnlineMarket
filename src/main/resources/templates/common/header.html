@@ -28,43 +28,67 @@
 
 <body>
 	<div th:fragment="navbar">
-		<!--<div class="page-top"-->
-			<!--style="width: 100%; height: 20px; background-color: #f46b42;"></div>-->
-		 <!--Static navbar -->
-		<nav class="navbar navbar-default navbar-inverse">
+			<nav class="navbar navbar-default navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" th:href="@{/}">MUM SHOESSTORE</a>
 				</div>
-				<div id="navbar">
-					<!--<ul class="nav navbar-nav navbar-left">-->
-						<!--&lt;!&ndash;<li class="dropdown"><a th:href="@{/#}"&ndash;&gt;-->
-							<!--&lt;!&ndash;class="dropdown-toggle" data-toggle="dropdown" role="button"&ndash;&gt;-->
-							<!--&lt;!&ndash;aria-haspopup="true" aria-expanded="false">Brands<span&ndash;&gt;-->
-								<!--&lt;!&ndash;class="caret"></span></a>&ndash;&gt;-->
-							<!--&lt;!&ndash;&lt;!&ndash;<ul class="dropdown-menu">&ndash;&gt;&ndash;&gt;-->
-								<!--&lt;!&ndash;<li><a th:href="@{/#}">###</a></li>&ndash;&gt;-->
-								<!--&lt;!&ndash;<li><a th:href="@{/hours}">### &#38; ###</a></li>&ndash;&gt;-->
-								<!--&lt;!&ndash;<li><a th:href="@{/faq}">###</a></li>&ndash;&gt;-->
+				<div id="navbar" >
+					<ul class="nav navbar-nav navbar-left"  sec:authorize="hasRole('BUYER')">
+						<li class="dropdown"><a th:href="@{/#}"
+							class="dropdown-toggle" data-toggle="dropdown" role="button"
+							aria-haspopup="true" aria-expanded="false" id="notfiy_id">Notification<span
+								class="caret"></span></a>
+							<ul class="dropdown-menu"  id="notify">
 
-							<!--&lt;!&ndash;</ul></li>&ndash;&gt;-->
-						<!--<form class="navbar-form" th:action="@{/#}" method="post">-->
-							<!--<div class="form-group">-->
-								<!--<input type="text" name="keyword" class="form-control"-->
-									<!--placeholder="Brand title" />-->
-							<!--</div>-->
-							<!--<button type="submit" class="btn btn-default">Search</button>-->
-						<!--</form>-->
+								</ul>
+					     </li>
+
+					</ul>
+					<!--<ul class="nav navbar-nav navbar-right">-->
+						<!--&lt;!&ndash;buyer&ndash;&gt;-->
+						<!--<li><a sec:authorize="isAuthenticated()" th:href="@{/buyer/brands}">BRANDS</a></li>-->
+						<!--<li><a sec:authorize="isAuthenticated()" th:href="@{/buyer/notification}">NOTIFICATION</a></li>-->
+						<!--<li><a  th:href="@{/buyer/shoppingCart/cart}">SHOPPING CART</a></li>-->
+						<!--<li><a sec:authorize="isAnonymous()" th:href="@{/login}">LOG-->
+								<!--IN</a></li>-->
+						<!--<li><a sec:authorize="isAuthenticated()"-->
+							<!--th:href="@{/myProfile}">MY ACCOUNT</a></li>-->
+						<!--<li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a></li>-->
 					<!--</ul>-->
-					<ul class="nav navbar-nav navbar-right">
-						<li><a sec:authorize="isAuthenticated()" th:href="@{/brands}">BRANDS</a></li>
-						<li><a sec:authorize="isAuthenticated()" th:href="@{/notification}">NOTIFICATION</a></li>
+					<ul class="nav navbar-nav navbar-right" sec:authorize="hasRole('BUYER')" >
+						<!--buyer-->
+						<li><a th:href="@{/buyer/brands}">BRANDS</a></li>
 						<li><a  th:href="@{/buyer/shoppingCart/cart}">SHOPPING CART</a></li>
 						<li><a sec:authorize="isAnonymous()" th:href="@{/login}">LOG
-								IN</a></li>
+							IN</a></li>
 						<li><a sec:authorize="isAuthenticated()"
-							th:href="@{/myProfile}">MY ACCOUNT</a></li>
+							   th:href="@{/myProfile}">MY ACCOUNT</a></li>
 						<li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a></li>
+					</ul>
+						<ul class="nav navbar-nav navbar-right" sec:authorize="hasRole('SELLER')" >
+						    <!--buyer-->
+					        <li><a  th:href="@{/seller/product}">ADD PRODUCTS</a></li>
+					        <li><a sec:authorize="isAnonymous()" th:href="@{/login}">LOG
+						    IN</a></li>
+					        <li><a  th:href="@{/seller/products}">List of Products</a></li>
+					        <li><a  th:href="@{/seller/review}">List of Review</a></li>
+					        <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a></li>
+					    </ul>
+					<ul class="nav navbar-nav navbar-right" sec:authorize="hasRole('ADMIN')" >
+						<!--buyer-->
+						<li><a  th:href="@{/admin/pending}">PENDING REVIEW</a></li>
+						<li><a sec:authorize="isAnonymous()" th:href="@{/login}">LOG
+							IN</a></li>
+						<li><a  th:href="@{/admin/inactive}">Activate Seller</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right" sec:authorize="!isAuthenticated()" >
+						    <!--anonyomous-->
+						<li><a sec:authorize="isAnonymous()" th:href="@{/signup}">SIGN
+							UP</a></li>
+					     <li><a sec:authorize="isAnonymous()" th:href="@{/login}">LOG
+						IN</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
@@ -77,12 +101,12 @@
 		<br />
 		<br />
 		<footer>
-			<div class="row">
+			<div class="row" >
 				<div class="col-xs-3 footerleft">
-					<div class="logofooter">
-						<a th:href="@{/}"><img class="img-responsive"
-							src="/image/logo.png" style="width: 200px;" /></a>
-					</div>
+					<!--<div class="logofooter">-->
+						<!--<a th:href="@{/}"><img class="img-responsive"-->
+							<!--src="/image/logo.png" style="width: 200px;" /></a>-->
+					<!--</div>-->
 					<p>
 						Mum Shoes Store. <br />Serving our customers with the
 						best.
@@ -137,6 +161,9 @@
 		<script th:src="@{/js/dataTables.bootstrap.min.js}"></script>
 
 		<script th:src="@{/js/signup.js}"></script>
+		<script th:src="@{/js/app.js}"></script>
+		<script th:src="@{/js/review.js}"></script>
+		<script th:src="@{/js/ajax.js}"></script>
 
 	</div>
 </body>

@@ -45,6 +45,9 @@ public class Buyer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
     private List<Orders> orderList;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    List<Notification> notificationList;
+
     @Valid
     @OneToOne(cascade = CascadeType.ALL)
     private Credential credential;
@@ -56,6 +59,16 @@ public class Buyer {
 
         } else {
             addresses.add(address);
+
+        }
+    }
+    public void addNotification(Notification notification) {
+        if (notification == null) {
+            notificationList = new ArrayList<Notification>();
+            notificationList.add(notification);
+
+        } else {
+            notificationList.add(notification);
 
         }
     }

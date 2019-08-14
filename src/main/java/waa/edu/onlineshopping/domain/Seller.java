@@ -25,13 +25,13 @@ public class Seller {
     private String securityQuestion;
     private String securityAnswer;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "seller")
     List<Product> products;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Buyer> subscribedBuyers;
 
     @Valid
@@ -48,5 +48,7 @@ public class Seller {
 
         }
     }
-
+     public void removeBuyer(Buyer buyer){
+           subscribedBuyers.remove(buyer);
+     }
 }

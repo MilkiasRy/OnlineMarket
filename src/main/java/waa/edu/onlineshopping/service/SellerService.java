@@ -1,6 +1,7 @@
 package waa.edu.onlineshopping.service;
 
 import waa.edu.onlineshopping.domain.Buyer;
+import waa.edu.onlineshopping.domain.Credential;
 import waa.edu.onlineshopping.domain.Seller;
 
 import java.util.List;
@@ -10,4 +11,7 @@ public interface SellerService {
     public Seller findById(Long id);
     public List<Seller> findAll();
     public void deleteById(Long id);
+    public Seller findBySubscribedBuyers(Buyer buyer);
+    public Seller findByCredential(Credential credential);
+
 }

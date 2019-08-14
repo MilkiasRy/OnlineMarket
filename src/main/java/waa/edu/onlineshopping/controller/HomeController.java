@@ -32,13 +32,13 @@ public class HomeController {
     private ProductService productService;
 
     @GetMapping("/home")
-    public String bookshelf(Model model, Principal principal) {
+    public String productshelf(Model model, Principal principal) {
         if(principal != null) {
             String username = principal.getName();
             System.out.println(username);
             Credential credential = credentialService.findByEmail(username);
             Buyer user = buyerService.findByCredential(credential);
-            System.out.println("LOGGED IN USER " + user);
+          //  System.out.println("LOGGED IN USER " + user);
             model.addAttribute("user", user);
         }
 

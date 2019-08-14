@@ -1,20 +1,12 @@
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
 
-  <head>
+<body>
+<div th:replace="common/header :: navbar" />
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>E-Shoppers</title>
-
-
-  </head>
-
-  <body>
+<div class="container">
 
 
 <br/>
@@ -51,6 +43,11 @@
 			</tbody>
 		</table>
      </div>
-  
-  </body>
+
+</div>
+<!-- end of container -->
+
+<!--<div th:replace="common/header :: footer"/>-->
+<div th:replace="common/header :: body-bottom-scripts" />
+</body>
 </html>

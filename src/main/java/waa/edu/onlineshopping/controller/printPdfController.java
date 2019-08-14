@@ -6,6 +6,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,8 +45,8 @@ public class printPdfController {
     private static final String DIRECTORY = "D:\\Marashi University\\MUM Assignment\\WAA\\Project\\onlineshopping";
     private static final String DEFAULT_FILE_NAME = "message.pdf";
 
-
-    @GetMapping("/printPdf/{id}")
+    @Secured("ROLE_BUYER")
+    @GetMapping("/buyer/printPdf/{id}")
     public String getPdf(@PathVariable("id") Long id, HttpServletRequest request, Principal principal){
 
 
@@ -75,10 +76,10 @@ public class printPdfController {
        catch (IOException ex){
 
        }
-        return "forward:/download";
+        return "forward:/buyer/download";
     }
-
-    @GetMapping("/download")
+    @Secured("ROLE_BUYER")
+    @GetMapping("/buyer/download")
     public ResponseEntity<ByteArrayResource> downloadFile2(
             Principal principal) throws IOException {
 

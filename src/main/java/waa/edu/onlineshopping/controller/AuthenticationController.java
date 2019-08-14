@@ -66,7 +66,7 @@ public class AuthenticationController {
 	public String buyerSignup(@Valid @ModelAttribute("buyer") Buyer buyer, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 		System.out.println("INSIDE BUYER/SIGNUP ");
 		if(bindingResult.hasErrors()){
-			System.out.println(bindingResult.getAllErrors().toString());
+			//System.out.println(bindingResult.getAllErrors().toString());
 			model.addAttribute("seller", new Seller());
 			return "signup";
 		}
@@ -84,7 +84,7 @@ public class AuthenticationController {
 //		credentialService.save(credential);
 
 		System.out.println("**********BUYER SIGNUP INFO************");
-		System.out.println(b);
+	//	System.out.println(b);
 		redirectAttributes.addFlashAttribute("success", "Signup Successful. Pleas login to continue shopping");
 		return "redirect:/signup";
 	}
@@ -105,7 +105,7 @@ public class AuthenticationController {
 
 		Seller s = sellerService.save(seller);
 		System.out.println("**********SELLER SIGNUP INFO************");
-		System.out.println(s);
+	//	System.out.println(s);
 		redirectAttributes.addFlashAttribute("success", "We will email once your account is approved and activated");
 		return "redirect:/signup";
 	}

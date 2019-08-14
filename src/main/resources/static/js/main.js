@@ -18,12 +18,13 @@
     };
 })(jQuery);
 $(function() {
+
    console.log()
     $('.cartItemQty').change(qtyChange);
+    $('.btn_brand').click(followBrand)
    function qtyChange() {
        var qty = $(this).val();
        var cartItem_id=$(this).attr('id');
-       // var item = {id: cartItem_id, quantity: qty};
 
        $.ajax({
            type: 'GET',
@@ -42,12 +43,37 @@ $(function() {
 
        });
    }
-    // function updatedItemSuccess(items) {
-    //    console.log(items)
-    //     console.log("Updated Item successfully!!!!");
-    //
-    // }
-    // function error(err) {
-    //     console.error(err);
-    // }
+   function followBrand(event) {
+        event.preventDefault();
+       let btn_id=$(this).attr('id');
+       let x=$('#'+btn_id).text();
+       let url=null;
+       if(x==="Subscribe"){
+             url='/buyer/brands/add/'+btn_id+'/'
+         }else if(x==="UnSubscribe"){
+           url='/buyer/brands/delete/'+btn_id+'/'
+       }
+
+       $.ajax({
+           type: 'GET',
+           url: url,
+           contentType: 'application/json',
+           dataType: 'json',
+           success: function(data){
+                 console.log("result",data);
+               if(data){
+                   console.log('#'+btn_id)
+                  $('#'+btn_id).html('UnSubscribe')
+               }else{
+                   $('#'+btn_id).html('Subscribe')
+               }
+               var x=$('#'+btn_id).text();
+               console.log(x);
+           },
+           error: function (xmlResponse) {
+               console.log(xmlResponse.responseJSON)
+           }
+
+       });
+   }
 })

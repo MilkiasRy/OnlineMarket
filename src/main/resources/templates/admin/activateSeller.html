@@ -1,32 +1,20 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{common/dashboard_layout}">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link th:href="@{/css/activateSeller.css}" rel="stylesheet">
-    <title>Inactive Seller Accounts</title>
-</head>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
 
 <body>
-<div class="col" layout:fragment="main-content">
+<div th:replace="common/header :: navbar" />
+
+<div class="container">
+
+
+<!----Nav Framgemnt and Home Page--->
 
 <div class="container">
 
     <h3>Inactive Seller Accounts</h3>
     <hr>
-
-    <!-- Add a button -->
-<!--    <a th:href="@{/employees/showFormForAdd}"-->
-<!--       class="btn btn-primary btn-sm mb-3">-->
-<!--        Add Employee-->
-<!--    </a>-->
-
 
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -43,11 +31,11 @@
 
             <td th:text="${inactiveSeller.email}" />
             <td th:text="${inactiveSeller.enabled}" />
-            <td th:text="${inactiveSeller.enabled}" />
+            <!--<td th:text="${inactiveSeller.enabled}" />-->
 
             <!-- Add update button/link -->
             <td>
-                <a th:href="@{/activate/seller(sellerId=${inactiveSeller.id})}"  class="btn btn-info btn-sm">
+                <a th:href="@{/admin/activate/seller(sellerId=${inactiveSeller.id})}"  class="btn btn-info btn-sm">
                     Activate
                 </a>
 

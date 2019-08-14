@@ -1,9 +1,13 @@
 
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
 <head th:replace="common/header :: common-header" />
 
 <body style="font-size: 14px">
+<div th:replace="common/header :: navbar" />
+<div class="row" style="margin-bottom: -100px;">
+
 <th:block >
     <form th:action="@{/seller/product}" th:object="${product}" method="post"  enctype="multipart/form-data" >
         <fieldset>
@@ -12,7 +16,8 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
                 <div class="col-md-4">
-                    <input id="product_name" name="product_name" placeholder="Product Name" class="form-control input-md" required="" type="text" th:field="*{name}">
+                    <input id="product_name" name="product_name" placeholder="Product Name" class="form-control input-md"  type="text" th:field="*{name}">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors ="*{name}" class="alert alert-danger"/>
 
                 </div>
             </div>
@@ -22,14 +27,14 @@
                 <label class="col-md-4 control-label" for="available_quantity">MODEL</label>
                 <div class="col-md-4">
                     <input id="model" name="model" placeholder="model" class="form-control input-md" required="" type="text" th:field="*{model}">
-
+                    <span th:if="${#fields.hasErrors('model')}" th:errors ="*{model}" class="alert alert-danger"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="available_quantity">AVAILABLE QUANTITY</label>
                 <div class="col-md-4">
                     <input id="available_quantity" name="available_quantity" placeholder="Available Quantity" class="form-control input-md" required="" type="text"th:field="*{quantity}">
-
+                    <span th:if="${#fields.hasErrors('quantity')}" th:errors ="*{quantity}" class="alert alert-danger"/>
                 </div>
             </div>
 
@@ -37,15 +42,15 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="product_unit_price">UNIT PRICE</label>
                 <div class="col-md-4">
-                    <input id="product_unit_price" name="product_unit_price" placeholder="Unit Price" class="form-control input-md" required="" type="text" th:field="*{unitPrice}">
-
+                    <input id="product_unit_price" name="product_unit_price" placeholder="Unit Price" class="form-control input-md"  type="text" th:field="*{unitPrice}">
+                    <span th:if="${#fields.hasErrors('unitPrice')}" th:errors ="*{unitPrice}" class="alert alert-danger"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-4 control-label" for="product_list_price">LIST PRICE</label>
                 <div class="col-md-4">
                     <input id="product_list_price" name="product_list_price" placeholder="List Price" class="form-control input-md" required="" type="text" th:field="*{discountPrice}">
-
+                    <span th:if="${#fields.hasErrors('discountPrice')}" th:errors ="*{discountPrice}" class="alert alert-danger"/>
                 </div>
             </div>
 
@@ -54,6 +59,7 @@
                 <label class="col-md-4 control-label" for="product_description">PRODUCT DESCRIPTION</label>
                 <div class="col-md-4">
                     <textarea class="form-control" id="product_description" name="product_description" required="" th:field="*{description}"></textarea>
+                    <span th:if="${#fields.hasErrors('description')}" th:errors ="*{description}" class="alert alert-danger"/>
                 </div>
             </div>
 
@@ -79,5 +85,10 @@
 </th:block>
     </div>
 </div>
+</div>
+<!-- end of container -->
+
+<!--<div th:replace="common/header :: footer"/>-->
+<div th:replace="common/header :: body-bottom-scripts" />
 </body>
 </html>

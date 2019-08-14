@@ -8,14 +8,18 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-//@Entity
+@Entity
 public class Notification {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String description;
+    @OneToOne
     private Seller company;
-    private List<String> email;
     @OneToOne
     private Product product;
+
+    public Notification(String description) {
+        this.description = description;
+    }
 }
