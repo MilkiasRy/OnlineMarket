@@ -7,10 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import waa.edu.onlineshopping.domain.Buyer;
+import waa.edu.onlineshopping.domain.Credential;
 import waa.edu.onlineshopping.domain.Product;
-import waa.edu.onlineshopping.domain.User;
+import waa.edu.onlineshopping.service.BuyerService;
+import waa.edu.onlineshopping.service.CredentialService;
 import waa.edu.onlineshopping.service.ProductService;
-import waa.edu.onlineshopping.service.UserService;
 
 import java.security.Principal;
 import java.util.Arrays;
@@ -21,7 +23,11 @@ public class HomeController {
 
 
     @Autowired
-    private UserService userService;
+    private CredentialService credentialService;
+
+    @Autowired
+    private BuyerService buyerService;
+
     @Autowired
     private ProductService productService;
 
@@ -30,7 +36,9 @@ public class HomeController {
         if(principal != null) {
             String username = principal.getName();
             System.out.println(username);
-            User user = userService.findUserByEmail(username);
+            Credential credential = credentialService.findByEmail(username);
+            Buyer user = buyerService.findByCredential(credential);
+            System.out.println("LOGGED IN USER " + user);
             model.addAttribute("user", user);
         }
 

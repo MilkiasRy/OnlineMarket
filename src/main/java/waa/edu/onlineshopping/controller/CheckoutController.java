@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import waa.edu.onlineshopping.domain.*;
 import waa.edu.onlineshopping.service.*;
+import waa.edu.onlineshopping.util.EmailNotification;
 //import waa.edu.onlineshopping.util.EmailNotification;
 
 
@@ -19,32 +20,32 @@ import java.util.Map;
 @Controller
 public class CheckoutController {
 
-@Autowired
-    UserService userService;
-@Autowired
-BuyerService buyerService;
-@Autowired
+    @Autowired
+    CredentialService credentialService;
+    @Autowired
+    BuyerService buyerService;
+    @Autowired
     CartItemService cartItemService;
-@Autowired
+    @Autowired
     CartService cartService;
-@Autowired
+    @Autowired
     OrderService orderService;
-//@Autowired
-//    EmailNotification emailNotification;
+    @Autowired
+    EmailNotification emailNotification;
 
 
     @RequestMapping("/checkout")
-    public String checkout(@ModelAttribute("newBillingAddress")BillingAddress billingAddress,@RequestParam("id") Long cartId,
+    public String checkout(@ModelAttribute("newBillingAddress") BillingAddress billingAddress, @RequestParam("id") Long cartId,
                            @RequestParam(value = "missingRequiredField", required = false) boolean missingRequiredField,
-                           Principal principal,Model model){
-        User user  = userService.findUserByEmail(principal.getName());
-          Buyer buyer= buyerService.findById(user.getBuyer().getId());
+                           Principal principal, Model model) {
+        Credential credential = credentialService.findByEmail(principal.getName());
+        Buyer buyer = buyerService.findByCredential(credential);
 
 
         if (cartId != buyer.getCart().getId()) {
             return "badRequestPage";
         }
-        List<CartItem> cartItemList =cartService.findByCart(buyer.getCart());
+        List<CartItem> cartItemList = cartService.findByCart(buyer.getCart());
 
         for (CartItem cartItem : cartItemList) {
             if (cartItem.getProduct().getQuantity() < cartItem.getQuantity()) {
@@ -59,11 +60,11 @@ BuyerService buyerService;
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
         model.addAttribute("buyerShippingList", buyerAddresses);
-        System.out.println("Addresses"+ buyerAddresses);
+        System.out.println("Addresses" + buyerAddresses);
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
         model.addAttribute("payment", buyerPayment);
-       /// model.addAttribute("newBillingAddress",new BillingAddress());
+        /// model.addAttribute("newBillingAddress",new BillingAddress());
 
 
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -82,10 +83,10 @@ BuyerService buyerService;
 
         model.addAttribute("cartItemList", cartItemList);
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("caritemList"+cartItemList);
-        model.addAttribute("shoppingCart", user.getBuyer().getCart());
+        System.out.println("caritemList" + cartItemList);
+        model.addAttribute("shoppingCart", buyer.getCart());
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-       // System.out.println(buyer.getCart());
+        // System.out.println(buyer.getCart());
         model.addAttribute("classActiveShipping", true);
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
@@ -96,27 +97,29 @@ BuyerService buyerService;
 
         return "buyer/checkout";
     }
+
     @PostMapping("/checkout")
     public String checkoutPost(@ModelAttribute("newBillingAddress") BillingAddress billingAddress,
-                               @ModelAttribute("shippingMethod") String shippingMethod, Principal principal, Model model){
+                               @ModelAttribute("shippingMethod") String shippingMethod, Principal principal, Model model) {
 //           if(result.hasErrors()){
 //               return "buyer/checkout";
 //           }
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println(billingAddress);
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        User user  = userService.findUserByEmail(principal.getName());
-        Buyer buyer= buyerService.findById(user.getBuyer().getId());
+        Credential credential = credentialService.findByEmail(principal.getName());
+        Buyer buyer = buyerService.findByCredential(credential);
 
-        List<CartItem> cartItemList =cartService.findByCart(buyer.getCart());
-        model.addAttribute("cartItemList",cartItemList);
+        List<CartItem> cartItemList = cartService.findByCart(buyer.getCart());
+        model.addAttribute("cartItemList", cartItemList);
 
-         Cart cart=user.getBuyer().getCart();
+//         Cart cart=user.getBuyer().getCart();
+        Cart cart = buyer.getCart();
         Orders order = orderService.createOrder(cart, billingAddress, buyer);
-        Orders orders=orderService.findByBuyer(buyer);
-        model.addAttribute("order_id",orders.getId());
-//        emailNotification.sendEmail(principal.getName(),"Thank you for shopping on our book store. We hope you had a good time with our service!",
-//                                    "ordernumber"+orders.getId());
+        Orders orders = orderService.findByBuyer(buyer);
+        model.addAttribute("order_id", orders.getId());
+        emailNotification.sendEmail(principal.getName(), "Thank you for shopping on our book store. We hope you had a good time with our service!",
+                "ordernumber" + orders.getId());
         cartService.clearCart(cart);
 
         LocalDate today = LocalDate.now();

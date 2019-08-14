@@ -2,41 +2,55 @@ package waa.edu.onlineshopping.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
 public class Buyer {
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-   @Cascade(CascadeType.ALL)
-    @OneToOne
-    private User user;
+
+    @NotEmpty
+    private String firstName;
+
+    @NotEmpty
+    private String lastName;
+
+    private String gender;
+    private String securityQuestion;
+    private String securityAnswer;
 
     private int points;
-    @Cascade(CascadeType.ALL)
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Address> addresses;
-    @Cascade(CascadeType.ALL)
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Payment payment;
     @OneToOne(mappedBy = "buyer")
     //@JoinColumn
     private Cart cart;
-    @Cascade(CascadeType.ALL)
-    @OneToMany(mappedBy = "buyer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
     private List<Orders> orderList;
 
+    @Valid
+    @OneToOne(cascade = CascadeType.ALL)
+    private Credential credential;
+
     public void addAddress(Address address) {
-        if (address ==null) {
+        if (address == null) {
             addresses = new ArrayList<Address>();
             addresses.add(address);
 
@@ -44,6 +58,6 @@ public class Buyer {
             addresses.add(address);
 
         }
-
     }
+
 }

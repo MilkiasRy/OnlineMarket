@@ -15,11 +15,10 @@ import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import waa.edu.onlineshopping.domain.Buyer;
 import waa.edu.onlineshopping.domain.CartItem;
-import waa.edu.onlineshopping.domain.User;
 import waa.edu.onlineshopping.service.BuyerService;
 import waa.edu.onlineshopping.service.CartItemService;
 import waa.edu.onlineshopping.service.CartService;
-import waa.edu.onlineshopping.service.UserService;
+//import waa.edu.onlineshopping.service.UserService;
 import waa.edu.onlineshopping.service.serviceImpl.ReportCreationService;
 
 

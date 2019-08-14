@@ -18,7 +18,7 @@ public class ShoppingCartController {
 
 
     @Autowired
-    UserService userService;
+    CredentialService credentialService;
     @Autowired
     ProductService productService;
     @Autowired
@@ -32,8 +32,9 @@ public class ShoppingCartController {
     public String addItem(@ModelAttribute("product") Product product,
                           @ModelAttribute("qty") String qty, Model model, Principal principal, RedirectAttributes redirectAttributes
     ) {
-        User user = userService.findUserByEmail(principal.getName());
-        Buyer buyer = buyerService.findById(user.getBuyer().getId());
+        Credential credential = credentialService.findByEmail(principal.getName());
+//        Buyer buyer = buyerService.findById(user.getBuyer().getId());
+        Buyer buyer = buyerService.findByCredential(credential);
 
         model.addAttribute("buyer", buyer);
 
@@ -54,8 +55,8 @@ public class ShoppingCartController {
 
     @GetMapping("/cart")
     public String shoppingCart(Model model, Principal principal) {
-        User user = userService.findUserByEmail(principal.getName());
-        Buyer buyer = buyerService.findById(user.getBuyer().getId());
+        Credential credential = credentialService.findByEmail(principal.getName());
+        Buyer buyer = buyerService.findByCredential(credential);
         Cart cart = buyer.getCart();
         List<CartItem> cartItemList = cartService.findByCart(cart);
         System.out.println(cartItemList);

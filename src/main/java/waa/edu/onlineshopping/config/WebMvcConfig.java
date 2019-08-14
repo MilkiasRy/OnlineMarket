@@ -5,18 +5,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import waa.edu.onlineshopping.formatter.RoleFormatter;
+//import waa.edu.onlineshopping.formatter.RoleFormatter;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-	@Autowired
-	RoleFormatter roleFormatter;
-
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		registry.addFormatter(roleFormatter);
-	}
+//	@Autowired
+//	RoleFormatter roleFormatter;
+//
+//	@Override
+//	public void addFormatters(FormatterRegistry registry) {
+//		registry.addFormatter(roleFormatter);
+//	}
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {

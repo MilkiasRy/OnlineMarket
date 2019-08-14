@@ -1,14 +1,8 @@
 package waa.edu.onlineshopping.service;
 
-
-
-
+import org.springframework.security.core.userdetails.UserDetailsService;
 import waa.edu.onlineshopping.domain.Role;
 
-import java.util.List;
-
 public interface RoleService {
-    List<Role> findAll();
-
-    Role get(Long id);
+    Role findByRole(String role);
 }

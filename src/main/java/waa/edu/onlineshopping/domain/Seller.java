@@ -2,10 +2,12 @@ package waa.edu.onlineshopping.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+
 
 import javax.persistence.*;
+
+import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,35 +22,31 @@ public class Seller {
 
     @NotEmpty
     private String name;
+    private String securityQuestion;
+    private String securityAnswer;
 
-    @Cascade({CascadeType.ALL})
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="seller")
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     List<Product> products;
 
-    private int phonenumber;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
 
-    @Cascade(CascadeType.ALL)
-    @OneToOne
-    private Address addresses;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Buyer> subscribedBuyers;
 
-    @Cascade(CascadeType.ALL)
-    @OneToOne
-    private User user;
-
-    @OneToMany(fetch=FetchType.LAZY)
-    private List<Buyer> buyers;
+    @Valid
+    @OneToOne(cascade = CascadeType.ALL)
+    private Credential credential;
 
     public void addBuyer(Buyer buyer) {
-        if (buyers==null) {
-            buyers = new ArrayList<Buyer>();
-            buyers.add(buyer);
+        if (subscribedBuyers==null) {
+            subscribedBuyers = new ArrayList<Buyer>();
+            subscribedBuyers.add(buyer);
 
         } else {
-            buyers.add(buyer);
+            subscribedBuyers.add(buyer);
 
         }
-        //  return cartItems;
     }
-
 
 }

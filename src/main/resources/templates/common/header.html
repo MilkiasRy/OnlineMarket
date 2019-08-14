@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:fragment="common-header">
 <meta charset="utf-8" />
@@ -20,6 +20,8 @@
 
 <!-- Custom styles for this template -->
 <link href="@{/css/style.css}" rel="stylesheet" />
+
+<link th:href="@{/css/signup.css}" rel="stylesheet">
 
 
 </head>
@@ -55,8 +57,8 @@
 						<!--</form>-->
 					<!--</ul>-->
 					<ul class="nav navbar-nav navbar-right">
-						<li><a sec:authorize="isAuthenticated()" th:href="@{/buyer/brands}">BRANDS</a></li>
-						<li><a sec:authorize="isAuthenticated()" th:href="@{/buyer/notification}">NOTIFICATION</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/brands}">BRANDS</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/notification}">NOTIFICATION</a></li>
 						<li><a  th:href="@{/buyer/shoppingCart/cart}">SHOPPING CART</a></li>
 						<li><a sec:authorize="isAnonymous()" th:href="@{/login}">LOG
 								IN</a></li>
@@ -122,6 +124,8 @@
 	</div>
 
 	<div th:fragment="body-bottom-scripts">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
 		<script th:src="@{/js/jquery.min.js}"></script>
 		<script th:src="@{/js/bootstrap.min.js}"></script>
 
@@ -131,6 +135,9 @@
 		<!-- data table -->
 		<script th:src="@{/js/jquery.dataTables.min.js}"></script>
 		<script th:src="@{/js/dataTables.bootstrap.min.js}"></script>
+
+		<script th:src="@{/js/signup.js}"></script>
+
 	</div>
 </body>
 </html>

@@ -3,25 +3,20 @@ package waa.edu.onlineshopping.service.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import waa.edu.onlineshopping.domain.Buyer;
-import waa.edu.onlineshopping.domain.CartItem;
-import waa.edu.onlineshopping.domain.Orders;
-import waa.edu.onlineshopping.domain.User;
+import waa.edu.onlineshopping.domain.*;
 import waa.edu.onlineshopping.dto.ReportDto;
 import waa.edu.onlineshopping.dto.TableDto;
 import waa.edu.onlineshopping.repository.CartItemRepository;
-import waa.edu.onlineshopping.service.BuyerService;
-import waa.edu.onlineshopping.service.CartItemService;
-import waa.edu.onlineshopping.service.CartService;
-import waa.edu.onlineshopping.service.UserService;
+import waa.edu.onlineshopping.service.*;
 
 import java.security.Principal;
 import java.util.*;
 
 @Service
 public class ReportCreationService {
+
     @Autowired
-    UserService userService;
+    CredentialService credentialService;
     @Autowired
     BuyerService buyerService;
     @Autowired
@@ -29,12 +24,13 @@ public class ReportCreationService {
     @Autowired
     CartService cartService;
     public ReportDto createReport(Principal principal,Long id) {
-        User user  = userService.findUserByEmail(principal.getName());
-        Buyer buyer= buyerService.findById(user.getBuyer().getId());
+        Credential credential = credentialService.findByEmail(principal.getName());
+        Buyer buyer = buyerService.findByCredential(credential);
+
         Orders orders=new Orders();
         orders.setId(id);
         List<CartItem> cartItemList =cartItemRepository.findByOrder(orders);
-        ReportDto report = new ReportDto(buyer.getUser().getName(), "Thanks You for Shopping with us");
+        ReportDto report = new ReportDto(buyer.getFirstName(), "Thanks You for Shopping with us");
         System.out.println("+++++++++++++++++++"+ report);
         Collection<TableDto> table = new ArrayList<>();
          for(CartItem cartItem:cartItemList){

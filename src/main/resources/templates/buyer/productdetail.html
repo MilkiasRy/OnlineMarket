@@ -49,8 +49,8 @@
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <h4>Our Price: <span style="color:#db3208;">$<span th:text="${product.discountPrice}"></span></span></h4>
-                                        <p>List Price: <span style="text-decoration: line-through">$<span th:text="${product.unitprice}"></span></span></p>
-                                        <p>You save: $<span th:text="${#numbers.formatDecimal((product.unitprice - product.discountPrice), 0, 'COMMA', 2, 'POINT' )}"></span></p>
+                                        <p>List Price: <span style="text-decoration: line-through">$<span th:text="${product.unitPrice}"></span></span></p>
+                                        <p>You save: $<span th:text="${#numbers.formatDecimal((product.unitPrice - product.discountPrice), 0, 'COMMA', 2, 'POINT' )}"></span></p>
                                         <span>Qty: </span>
                                         <select name="qty">
                                             <option th:each="qty : ${qtyList}" th:value="${qty}" th:text="${qty}">

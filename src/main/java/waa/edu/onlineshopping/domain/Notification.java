@@ -14,7 +14,7 @@ public class Notification {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String description;
-    private Seller seller;
+    private Seller company;
     private List<String> email;
     @OneToOne
     private Product product;
