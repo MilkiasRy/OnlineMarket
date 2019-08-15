@@ -18,5 +18,8 @@ public class Address {
     private  String state;
     private String zipcode;
 
-
+    @Override
+    public String toString() {
+        return  street + ", " + city + ", " + state + "  " + zipcode;
+    }
 }

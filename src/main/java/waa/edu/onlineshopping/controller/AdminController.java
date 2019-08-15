@@ -7,8 +7,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import waa.edu.onlineshopping.domain.Credential;
+import waa.edu.onlineshopping.domain.Seller;
+import waa.edu.onlineshopping.dto.SellerCredential;
 import waa.edu.onlineshopping.service.CredentialService;
+import waa.edu.onlineshopping.service.SellerService;
 import waa.edu.onlineshopping.util.EmailNotification;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AdminController {
@@ -19,9 +26,28 @@ public class AdminController {
     @Autowired
     private EmailNotification emailNotification;
 
+    @Autowired
+    SellerService sellerService;
+
     @RequestMapping("/admin/inactive")
     public String sellerAccounts(Model model){
-        model.addAttribute("sellerCredentials", credentialService.findByEnabledFalse());
+        List<Credential> credentials = credentialService.findByEnabledFalse();
+        List<Seller> sellers = credentials.stream().map(c -> sellerService.findByCredential(c)).collect(Collectors.toList());
+        List<SellerCredential> sc = new ArrayList<>();
+        long count = 0;
+        for(Seller sell: sellers){
+            SellerCredential s = new SellerCredential();
+            s.setSerialNumber(++count)
+                    .setAccountEnabled(sell.getCredential().isEnabled())
+                    .setCompanyAddress(sell.getAddress().toString())
+                    .setCompanyName(sell.getName())
+                    .setEmail(sell.getCredential().getEmail())
+                    .setCredentialId(sell.getCredential().getId());
+            sc.add(s);
+
+        }
+
+        model.addAttribute("sellerCredentials", sc);
         return "admin/activateSeller";
     }
 

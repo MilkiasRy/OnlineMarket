@@ -63,8 +63,8 @@
 						<li><a  th:href="@{/buyer/shoppingCart/cart}">SHOPPING CART</a></li>
 						<li><a sec:authorize="isAnonymous()" th:href="@{/login}">LOG
 							IN</a></li>
-						<li><a sec:authorize="isAuthenticated()"
-							   th:href="@{/myProfile}">MY ACCOUNT</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/myProfile}">MY ACCOUNT</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/reset/password}">RESET PASSWORD</a></li>
 						<li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a></li>
 					</ul>
 						<ul class="nav navbar-nav navbar-right" sec:authorize="hasRole('SELLER')" >
@@ -193,6 +193,7 @@
 		<script th:src="@{/js/app.js}"></script>
 		<script th:src="@{/js/review.js}"></script>
 		<script th:src="@{/js/ajax.js}"></script>
+		<script th:src="@{/js/passwordReset.js}"></script>
 
 	</div>
 </body>

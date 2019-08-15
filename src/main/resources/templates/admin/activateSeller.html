@@ -19,8 +19,10 @@
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
+            <th>S.No</th>
+            <th>Company</th>
+            <th>Address</th>
             <th>Email</th>
-            <th>Enabled</th>
             <th>Enabled</th>
             <th>Action</th>
         </tr>
@@ -29,13 +31,16 @@
         <tbody>
         <tr th:each="inactiveSeller : ${sellerCredentials}">
 
+            <td th:text="${inactiveSeller.serialNumber}" />
+            <td th:text="${inactiveSeller.companyName}" />
+            <td th:text="${inactiveSeller.companyAddress}" />
             <td th:text="${inactiveSeller.email}" />
-            <td th:text="${inactiveSeller.enabled}" />
+            <td th:text="${inactiveSeller.accountEnabled}" />
             <!--<td th:text="${inactiveSeller.enabled}" />-->
 
             <!-- Add update button/link -->
             <td>
-                <a th:href="@{/admin/activate/seller(sellerId=${inactiveSeller.id})}"  class="btn btn-info btn-sm">
+                <a th:href="@{/admin/activate/seller(sellerId=${inactiveSeller.credentialId})}"  class="btn btn-info btn-sm">
                     Activate
                 </a>
 
