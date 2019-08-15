@@ -19,11 +19,11 @@
 		</div>
 		<hr
 			style="position: absolute; width: 100%; height: 6px; background-color: #333; z-index: -1; margin-top: -80px;" />
-		<img class="img-responsive" th:src="@{/image/wood.png}"
+		<img class="img-responsive" th:src="@{/images/wood.png}"
 			style="margin-top: -75px;" />
 
 		<div class="row" style="margin-top: 10px;">
-			<form th:action="@{/checkout}" method="post" th:object="${newBillingAddress}">
+			<form th:action="@{/buyer/checkout}" method="post" th:object="${newBillingAddress}">
 
 				<!-- Left Panel -->
 				<div class="col-xs-4">
@@ -195,7 +195,7 @@
 									<!-- Credit Card Information -->
 									<div class="row">
 										<div class="col-xs-12">
-											<img th:src="@{/image/creditcard.png}" class="img-responsive" /><br />
+											<img th:src="@{/images/creditcard.png}" class="img-responsive" /><br />
 											<div class="form-group">
 												<label for="cardType">* Select Card Type: </label> <select
 													class="form-control" id="cardType" name="type"

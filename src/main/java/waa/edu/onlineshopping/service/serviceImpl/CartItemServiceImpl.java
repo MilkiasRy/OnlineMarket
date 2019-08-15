@@ -21,7 +21,6 @@ public class CartItemServiceImpl implements CartItemService {
        // double prevCartItem= cartItem.getTotalPrice();
         cartItem.setTotalPrice(qty*discountPrice);
         cartItemRepository.saveAndFlush(cartItem);
-        System.out.println(cartItem.getCart().getId());
         return cartItemRepository.findGrandTotal(cartItem.getCart().getId());
 
 

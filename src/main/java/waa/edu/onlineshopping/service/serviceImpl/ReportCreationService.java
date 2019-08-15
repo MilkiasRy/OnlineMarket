@@ -35,8 +35,7 @@ public class ReportCreationService {
         Collection<TableDto> table = new ArrayList<>();
          for(CartItem cartItem:cartItemList){
              System.out.println("############");
-             System.out.println(cartItem.getQuantity()+""+cartItem.getProduct().getName());
-             System.out.println(cartItem.getTotalPrice()+""+cartItem.getProduct().getDiscountPrice());
+
              System.out.println("############");
              TableDto tableDto=new TableDto(cartItem.getQuantity(),cartItem.getTotalPrice(),cartItem.getProduct().getDiscountPrice(),cartItem.getProduct().getName());
              table.add(tableDto);

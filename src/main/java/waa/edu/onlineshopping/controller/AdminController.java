@@ -19,13 +19,13 @@ public class AdminController {
     @Autowired
     private EmailNotification emailNotification;
 
-    @RequestMapping("/inactive")
+    @RequestMapping("/admin/inactive")
     public String sellerAccounts(Model model){
         model.addAttribute("sellerCredentials", credentialService.findByEnabledFalse());
         return "admin/activateSeller";
     }
 
-    @RequestMapping("/activate/seller")
+    @RequestMapping("/admin/activate/seller")
     public String activateSeller(@RequestParam("sellerId") Long sellerId){
         Credential credential = credentialService.findById(sellerId);
         credential.setEnabled(true);
@@ -35,10 +35,10 @@ public class AdminController {
                 "<p>Your account has been approved and activated. You can now login and post your products.</p>" +
                         "<p>Login Page: <a href=\"http://localhost:8080/login\">Online Shopping</a></p>");
 
-        return "redirect:/inactive";
+        return "redirect:/admin/inactive";
     }
 
-    @RequestMapping("/pending/reviews")
+    @RequestMapping("/admin/pending/reviews")
     public String pendingReviews(Model model){
         model.addAttribute("sellerCredentials", credentialService.findByEnabledFalse());
         return "admin/activateSeller";

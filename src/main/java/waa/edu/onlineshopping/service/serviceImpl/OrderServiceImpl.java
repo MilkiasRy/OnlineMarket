@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import waa.edu.onlineshopping.domain.*;
 import waa.edu.onlineshopping.repository.CartItemRepository;
 import waa.edu.onlineshopping.repository.OrderRepository;
+import waa.edu.onlineshopping.service.BuyerService;
 import waa.edu.onlineshopping.service.CartItemService;
 import waa.edu.onlineshopping.service.CartService;
 import waa.edu.onlineshopping.service.OrderService;
@@ -20,20 +21,24 @@ public class OrderServiceImpl implements OrderService {
     CartItemRepository cartItemRepository;
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    BuyerService buyerService;
     @Override
     public Orders createOrder(Cart cart, BillingAddress billingAddress, Buyer buyer) {
-            if(billingAddress!=null ){
+        Buyer buyer1=null;
+        if(billingAddress!=null ){
                 buyer.addAddress(billingAddress.getAddress());
                 buyer.setPayment(billingAddress.getPayment());
+                 buyer1= buyerService.save(buyer);
             }
 
+
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println(buyer.getAddresses());
-        System.out.println(buyer.getPayment());
+
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
        Orders order=new Orders();
         order.setStatus(false);
-        order.setBuyer(buyer);
+        order.setBuyer(buyer1);
         order.setOrderdate(LocalDate.now());
         order.setOrderTotal(cart.getGrandTotal());
 
@@ -50,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
 
 
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println(cart.getGrandTotal());
+
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         return order;
     }

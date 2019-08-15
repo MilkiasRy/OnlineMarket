@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import waa.edu.onlineshopping.domain.Product;
-import waa.edu.onlineshopping.service.ProductService;
+import waa.edu.onlineshopping.domain.*;
+import waa.edu.onlineshopping.service.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,14 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
+    @Autowired
+    NotificationService notificationService;
+    @Autowired
+    CredentialService credentialService;
+    @Autowired
+    SellerService sellerService;
+    @Autowired
+    BuyerService buyerService;
 
         @GetMapping({"/product"})
     public String getProduct(@ModelAttribute("product")Product product){
@@ -38,13 +47,30 @@ public class ProductController {
         }
 
     @PostMapping({"/product"})
-    public String saveProduct(@Valid Product product, BindingResult bindingResult, HttpServletRequest request){
+    public String saveProduct(@Valid Product product, BindingResult bindingResult, HttpServletRequest request, Principal principal){
+        Credential credential = credentialService.findByEmail(principal.getName());
+        Seller seller = sellerService.findByCredential(credential);
+              Long newProduct=product.getId();
             if(bindingResult.hasErrors()){
                   return "seller/product";
             }
         MultipartFile memberImage = product.getProductPic();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+                product.setSeller(seller);
              Product p=productService.save(product);
+
+              List<Buyer> subscribedBuyers= seller.getSubscribedBuyers();
+              if(newProduct==null) {
+                  for (Buyer buyer : subscribedBuyers) {
+                      Notification notification = new Notification();
+                      notification.setDescription(p.getDescription());
+                      notification.setCompany(seller);
+                      notification.setProduct(product);
+                      Notification notification1 = notificationService.save(notification);
+                      buyer.addNotification(notification1);
+                      buyerService.save(buyer);
+                  }
+              }
 
         if (memberImage != null && !memberImage.isEmpty()) {
 
@@ -85,7 +111,7 @@ public class ProductController {
     @GetMapping("product/delete/{id}")
     public String deleteProduct(@PathVariable("id") long id, Model model) {
         productService.deleteById(id);
-                return "seller/products";
+                return "redirect:/seller/products";
 
     }
     @ModelAttribute("products")
@@ -93,5 +119,11 @@ public class ProductController {
     {
           return productService.getProducts();
     }
+
+
+
+
+
+
 
 }

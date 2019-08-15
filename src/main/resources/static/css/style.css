@@ -66,8 +66,9 @@ footer {
 }
 
 .footerleft {
-    margin-top: 50px;
+    margin-top: 5px;
     padding: 0 36px;
+    bottom: 0px;
 }
 
 .logofooter {
@@ -90,7 +91,7 @@ footer {
 }
 
 .paddingtop-bottom {
-    margin-top: 50px;
+    margin-top: 5px;
 }
 
 .footer-ul {

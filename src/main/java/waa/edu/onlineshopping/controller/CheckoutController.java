@@ -1,6 +1,7 @@
 package waa.edu.onlineshopping.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +34,8 @@ public class CheckoutController {
     @Autowired
     EmailNotification emailNotification;
 
-
-    @RequestMapping("/checkout")
+    @Secured("ROLE_BUYER")
+    @RequestMapping("buyer/checkout")
     public String checkout(@ModelAttribute("newBillingAddress") BillingAddress billingAddress, @RequestParam("id") Long cartId,
                            @RequestParam(value = "missingRequiredField", required = false) boolean missingRequiredField,
                            Principal principal, Model model) {
@@ -60,7 +61,7 @@ public class CheckoutController {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
         model.addAttribute("buyerShippingList", buyerAddresses);
-        System.out.println("Addresses" + buyerAddresses);
+
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
         model.addAttribute("payment", buyerPayment);
@@ -83,7 +84,7 @@ public class CheckoutController {
 
         model.addAttribute("cartItemList", cartItemList);
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("caritemList" + cartItemList);
+
         model.addAttribute("shoppingCart", buyer.getCart());
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         // System.out.println(buyer.getCart());
@@ -97,15 +98,15 @@ public class CheckoutController {
 
         return "buyer/checkout";
     }
-
-    @PostMapping("/checkout")
+    @Secured("ROLE_BUYER")
+    @PostMapping("buyer/checkout")
     public String checkoutPost(@ModelAttribute("newBillingAddress") BillingAddress billingAddress,
                                @ModelAttribute("shippingMethod") String shippingMethod, Principal principal, Model model) {
 //           if(result.hasErrors()){
 //               return "buyer/checkout";
 //           }
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println(billingAddress);
+
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         Credential credential = credentialService.findByEmail(principal.getName());
         Buyer buyer = buyerService.findByCredential(credential);
