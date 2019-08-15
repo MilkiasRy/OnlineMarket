@@ -33,14 +33,14 @@ public class ReviewController {
     @Autowired
     SellerService sellerService;
 
-    @PostMapping("/buyer/review/add/{productId}/{des}")
-    public @ResponseBody Boolean postReview(@Valid
-               @PathVariable("productId")Long productId, @PathVariable("des")String des, Principal principal) {
+    @PostMapping("/buyer/review/add/{productId}")
+    public @ResponseBody Boolean postReview(@RequestBody ReviewHelper reviewHelper,
+               @PathVariable("productId")Long productId, Principal principal) {
         Credential credential = credentialService.findByEmail(principal.getName());
         Buyer buyer = buyerService.findByCredential(credential);
         Review review=new Review();
           review.setBuyer(buyer);
-          review.setDescription(des);
+          review.setDescription(reviewHelper.getDescription());
           review.setProduct(productService.findById(productId));
           Review review1=reviewService.save(review);
        // System.out.println(request.getParameter("review"));

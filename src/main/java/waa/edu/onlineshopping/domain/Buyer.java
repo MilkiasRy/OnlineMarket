@@ -1,5 +1,8 @@
 package waa.edu.onlineshopping.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -33,15 +36,18 @@ public class Buyer {
     private String securityAnswer;
 
     private int points;
-
+    @JsonIgnore
+    @Valid
     @OneToMany(cascade = CascadeType.ALL)
     private List<Address> addresses;
-
+     @Valid
     @OneToOne(cascade = CascadeType.ALL)
     private Payment payment;
+     @JsonBackReference
     @OneToOne(mappedBy = "buyer")
     //@JoinColumn
     private Cart cart;
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
     private List<Orders> orderList;
 

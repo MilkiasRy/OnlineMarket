@@ -116,11 +116,17 @@ public class CheckoutController {
 
 //         Cart cart=user.getBuyer().getCart();
         Cart cart = buyer.getCart();
+
         Orders order = orderService.createOrder(cart, billingAddress, buyer);
-        Orders orders = orderService.findByBuyer(buyer);
-        model.addAttribute("order_id", orders.getId());
+
+//          StringBuilder stringBuilder=null;
+//        for(Orders orders: orderService.findAll()){
+//              if(orders.getBuyer().getId()==buyer.getId())
+//             stringBuilder.append(orders.getId());
+//        }
+        model.addAttribute("order_id", order.getId());
         emailNotification.sendEmail(principal.getName(), "Thank you for shopping on our book store. We hope you had a good time with our service!",
-                "ordernumber" + orders.getId());
+                "ordernumber" + order.getId());
         cartService.clearCart(cart);
 
         LocalDate today = LocalDate.now();

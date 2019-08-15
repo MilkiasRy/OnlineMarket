@@ -7,6 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +24,15 @@ public class Product {
     private String name;
     @NotEmpty
     private String model;
-     @NotEmpty
+
      private int quantity;
-     @NotEmpty
      private double unitPrice;
     private double discountPrice;
+    @Size(max = 20,message = "{fooCommand.textField.max.message}")
     @NotEmpty
     private String description;
     @Transient
+
     private MultipartFile productPic;
 
     @JoinColumn(name="SELLER_ID")

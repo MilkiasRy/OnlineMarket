@@ -20,18 +20,19 @@ $(document).ready(function () {
     $('#btnReview').click(function (event) {
         event.preventDefault();
         let productId = $('#productId').val();
-        var  review=$('#review').val();
-
+        let  review=$('#review').val();
+        //
         var data = JSON.stringify($("#formReview").serializeFormJSON());
 
 
         $.ajax({
-            url: "/buyer/review/add/"+productId+"/"+review,
+            url: "/buyer/review/add/"+productId,
             type: "POST",
             contentType: "application/json",
+            data:data,
             dataType: "json",
             success: function (result) {
-                $('#review').html("")
+                $('#review').val("");
                 $("#divConfirm").html("Thanks for Your Review");
 
                 // $("#resultdiv").append('<p>Cities Connected? ' + result.toString().toUpperCase() + '</p>').show();

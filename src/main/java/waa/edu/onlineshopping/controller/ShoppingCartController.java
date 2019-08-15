@@ -70,7 +70,8 @@ public class ShoppingCartController {
                        Cart cart = buyer.getCart();
                        List<CartItem> cartItemList = cartService.findByCart(cart);
 
-
+                        if(cartItemList.size()==0)
+                       model.addAttribute("emptyCart",true);
                        model.addAttribute("cartItemList", cartItemList);
                        model.addAttribute("shoppingCart", cart);
 

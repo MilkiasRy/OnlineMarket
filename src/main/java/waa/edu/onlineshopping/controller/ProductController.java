@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import waa.edu.onlineshopping.domain.*;
+import waa.edu.onlineshopping.exception.ImageNotFoundException;
 import waa.edu.onlineshopping.service.*;
 
 import javax.imageio.ImageIO;
@@ -83,11 +84,12 @@ public class ProductController {
             }
             }catch (Exception e) {
                   productService.deleteById(p.getId());
-                throw new RuntimeException("Product Image saving failed", e);
+                throw new ImageNotFoundException("Image failed");
             }
         }
         else{
             System.out.println("Image failed");
+           // throw new IllegalArgumentException();
         }
              return "redirect:/seller/products";
     }
@@ -96,10 +98,10 @@ public class ProductController {
     public String editProduct(@PathVariable("id") long id, Model model) {
         Product product = productService.findById(id);
           model.addAttribute(product);
-        List<Integer> qtyList = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
-
-        model.addAttribute("qtyList", qtyList);
-        model.addAttribute("qty", 1);
+//        List<Integer> qtyList = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+//
+//        model.addAttribute("qtyList", qtyList);
+//        model.addAttribute("qty", 1);
            return "seller/product";
     }
 

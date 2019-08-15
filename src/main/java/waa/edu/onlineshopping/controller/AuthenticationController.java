@@ -90,9 +90,10 @@ public class AuthenticationController {
 	}
 
 	@RequestMapping(value = "/seller/signup", method = RequestMethod.POST)
-	public String sellerSignup(@Valid @ModelAttribute("seller") Seller seller, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String sellerSignup(@Valid @ModelAttribute("seller") Seller seller, BindingResult bindingResult, RedirectAttributes redirectAttributes,Model model) {
 
 		if(bindingResult.hasErrors()){
+			model.addAttribute("buyer", new Buyer());
 			return "signup";
 		}
 		seller.getCredential().setPassword(bCryptPasswordEncoder.encode(seller.getCredential().getPassword()));

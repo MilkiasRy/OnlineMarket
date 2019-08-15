@@ -33,7 +33,6 @@ public class OrderServiceImpl implements OrderService {
             }
 
 
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
        Orders order=new Orders();
@@ -42,8 +41,10 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderdate(LocalDate.now());
         order.setOrderTotal(cart.getGrandTotal());
 
-        List<CartItem> cartItemList =cartService.findByCart(buyer.getCart());
+        System.out.println("++++++++++++++++++++++++cartItem++++++++++++++++++++++++++++++++++++++++");
 
+        List<CartItem> cartItemList =cartService.findByCart(buyer.getCart());
+        System.out.println("before order ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         for(CartItem cartItem : cartItemList) {
             Product product = cartItem.getProduct();
             cartItem.setOrder(order);
@@ -56,12 +57,12 @@ public class OrderServiceImpl implements OrderService {
 
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("sucessfull ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         return order;
     }
 
     @Override
-    public Orders findByBuyer(Buyer buyer) {
-        return orderRepository.findByBuyer(buyer);
+    public List<Orders> findAll() {
+        return (List<Orders>)orderRepository.findAll();
     }
 }

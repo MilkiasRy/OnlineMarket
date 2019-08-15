@@ -27,12 +27,12 @@
 						<a class="btn btn-warning" th:href="@{/home}">Continue
 							Shopping</a>
 					</div>
-					<div th:if="${emptyCart==false}">
+					<!--<div th:if="${emptyCart==false}">-->
 					<div class="col-xs-6 text-right">
 						<a class="btn btn-primary"
-							th:href="@{/buyer/checkout(id=${shoppingCart.id})}">Check Out</a>
+							th:href="@{/buyer/checkout(id=${shoppingCart?.id})}">Check Out</a>
 					</div>
-					</div>
+					<!--</div>-->
 					<br />
 					<div th:if="${notEnoughStock}" class="alert alert-warning">
 						Oops, some of the products don't have enough stock. Please update
@@ -105,7 +105,7 @@
 							<strong style="font-size: large;">Total Price (<span
 								th:text="${#lists.size(cartItemList)}"></span> items):
 							</strong> <span style="color: #db3208; font-szie: large;">$<span id="grandTotal"
-								th:text="${shoppingCart.grandTotal}"></span></span>
+								th:text="${shoppingCart?.grandTotal}"></span></span>
 						</h4>
 					</div>
 				</div>

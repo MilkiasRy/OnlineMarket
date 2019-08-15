@@ -28,6 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
+
     @Qualifier("custom")
     @Autowired
     private UserDetailsService userDetailsService;
@@ -83,13 +86,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login").and()
-                .exceptionHandling()
-                .accessDeniedPage("/access-denied")
+                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
                 .and().csrf()
                 .ignoringAntMatchers("/h2-console/**") //don't apply CSRF protection to /h2-console
                 .and()
-                .exceptionHandling().accessDeniedPage("/error/access-denied")
-                .and().rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository())
+                 .rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository())
         ;
         http.rememberMe().rememberMeParameter("remember-me").key("uniqueAndSecret");
         http.headers().frameOptions().disable();

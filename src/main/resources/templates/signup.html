@@ -39,9 +39,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="First Name *" th:field="*{firstName}" />
+                                <span th:if="${#fields.hasErrors('firstName')}" th:errors ="*{firstName}" class="alert alert-danger"/>
+
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Last Name *" th:field="*{lastName}" />
+                                <span th:if="${#fields.hasErrors('lastName')}" th:errors ="*{lastName}" class="alert alert-danger"/>
                             </div>
                             <div class="form-group">
                                 <input type="password" id="txtNewPassword" class="form-control" placeholder="Password *" th:field="*{credential.password}" />
@@ -66,6 +69,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input type="email" class="form-control" placeholder="Your Email *" th:field="*{credential.email}" />
+                                <span th:if="${#fields.hasErrors('credential.email')}" th:errors ="*{credential.email}" class="alert alert-danger"/>
                             </div>
 <!--                            <div class="form-group">-->
 <!--                                <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />-->
@@ -101,9 +105,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Company Name *" th:field="*{name}" />
+                                <span th:if="${#fields.hasErrors('name')}" th:errors ="*{name}" class="alert alert-danger"/>
                             </div>
                             <div class="form-group">
                                 <input type="email" class="form-control" placeholder="Email *" th:field="*{credential.email}" />
+                                <span th:if="${#fields.hasErrors('credential.email')}" th:errors ="*{credential.email}" class="alert alert-danger"/>
                             </div>
                             <div class="form-group">
                                 <input type="password" id="txtNewPasswordSeller" class="form-control" placeholder="Password *" th:field="*{credential.password}" />
@@ -124,18 +130,23 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Street *" th:field="*{address.street}" />
+                                <span th:if="${#fields.hasErrors('address.street')}" th:errors ="*{address.street}" class="alert alert-danger"/>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="City *" th:field="*{address.city}" />
+                                <span th:if="${#fields.hasErrors('address.city')}" th:errors ="*{address.city}" class="alert alert-danger"/>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="State *" th:field="*{address.state}" />
+                                <span th:if="${#fields.hasErrors('address.state')}" th:errors ="*{address.state}" class="alert alert-danger"/>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Zip Code *" th:field="*{address.zipcode}" />
+                                <span th:if="${#fields.hasErrors('address.zipcode')}" th:errors ="*{address.zipcode}" class="alert alert-danger"/>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Answer *" th:field="*{securityAnswer}" />
+                                <span th:if="${#fields.hasErrors('securityAnswer')}" th:errors ="*{securityAnswer}" class="alert alert-danger"/>
                             </div>
                             <input type="submit" class="btnRegister"  value="Register"/>
                         </div>

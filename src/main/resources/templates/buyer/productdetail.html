@@ -72,15 +72,18 @@
                 <div id="divConfirm"></div>
                  <input id="productId" name="id" type="hidden" th:value="${product.id}"/>
 
-            <div class="form-group">
-               <div class="col-md-4">
-                    <textarea class="form-control" id="review" name="description" ></textarea>
-                </div>
-            </div>
-            <button  id="btnReview" class="btn btn-warning" style="color:black;border:1px solid black; padding: 10px 40px 10px 40px;">Write a Review</button>
+
 
 
         </div>
+    </form>
+    <form id="formReview">
+    <div class="form-group">
+        <div class="col-md-4">
+            <textarea class="form-control" id="review" name="description" ></textarea>
+        </div>
+    </div>
+    <button  id="btnReview" class="btn btn-warning" style="color:black;border:1px solid black; padding: 10px 40px 10px 40px;">Write a Review</button>
     </form>
 </div>
 <!-- end of container -->

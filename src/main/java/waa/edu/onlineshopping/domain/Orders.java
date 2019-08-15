@@ -1,5 +1,6 @@
 package waa.edu.onlineshopping.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
@@ -16,7 +17,7 @@ public class Orders {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Buyer buyer;

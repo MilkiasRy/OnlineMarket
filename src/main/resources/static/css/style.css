@@ -188,3 +188,6 @@ footer {
     color: #FFF;
     font-size: 12px;
 }
+fieldset >div{
+    display: inline-block;
+}
