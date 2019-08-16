@@ -119,10 +119,10 @@ public class AuthenticationController {
 //		return modelAndView;
 //	}
 
-	@RequestMapping(value = "/reset/password", method = RequestMethod.GET)
-	public String resetPassword() {
+	@RequestMapping(value = "/forgot/password", method = RequestMethod.GET)
+	public String forgotPassword() {
 
-		return "resetpassword";
+		return "forgotpassword";
 	}
 
 	@RequestMapping(value = "/security/question/{email}", method = RequestMethod.GET)
@@ -156,6 +156,23 @@ public class AuthenticationController {
 
 		System.out.println("WRONG ANSWER");
 		return "{\"failure\": \"Incorrect answer \"}";
+	}
+
+	@RequestMapping(value = "/reset/password", method = RequestMethod.GET)
+	public String resetPasswordPage() {
+
+		return "resetpassword";
+	}
+
+	@RequestMapping(value = "/reset/password", method = RequestMethod.POST)
+	public String resetPassword(@RequestParam("newPassword") String newPassword,  Principal principal) {
+		System.out.println("NEW PASSWORD: " + newPassword);
+		System.out.println(principal.getName());
+		Credential credential = credentialService.findByEmail(principal.getName());
+		credential.setPassword(bCryptPasswordEncoder.encode(newPassword));
+		credentialService.save(credential);
+
+		return "redirect:/home";
 	}
 
 	@ExceptionHandler(Exception.class)
