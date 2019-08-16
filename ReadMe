@@ -1,0 +1,46 @@
+Bellow are the generated username and password for buyer and seller and admin
+
+Functionality
+Admin: must approve sellers before they have access to sell product
+and must approve the review before he sent to the sellers
+
+sellers: add product, can see list of product
+and can see review of their product
+and send notification if buyers subscribe to their product
+
+
+buyer: can shop and get confirmation through email and print pdf
+and can follow/subscibe the sellers
+
+
+
+
+Generated sellers
+
+username: seller@com
+password: 123456
+
+username:seller1@com
+password:987654
+
+
+
+Generated buyers:
+
+username: buyer@com
+password: 123456
+
+
+
+username: buyer1@com
+password:987654
+
+
+Generated Admin
+
+username: admin
+password: admin
+
+
+
+
