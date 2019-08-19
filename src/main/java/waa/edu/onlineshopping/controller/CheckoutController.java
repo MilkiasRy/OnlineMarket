@@ -83,13 +83,13 @@ public class CheckoutController {
         }
 
         model.addAttribute("cartItemList", cartItemList);
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
 
         model.addAttribute("shoppingCart", buyer.getCart());
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        // System.out.println(buyer.getCart());
+
+
         model.addAttribute("classActiveShipping", true);
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
 
 
         if (missingRequiredField) {
@@ -101,32 +101,25 @@ public class CheckoutController {
     @Secured("ROLE_BUYER")
     @PostMapping("buyer/checkout")
     public String checkoutPost(@ModelAttribute("newBillingAddress") BillingAddress billingAddress,
-                               @ModelAttribute("shippingMethod") String shippingMethod, Principal principal, Model model) {
-//           if(result.hasErrors()){
-//               return "buyer/checkout";
-//           }
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                               @ModelAttribute("shippingMethod") String shippingMethod, Principal principal, Model model,@RequestParam("id") Long cartId) {
 
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
         Credential credential = credentialService.findByEmail(principal.getName());
         Buyer buyer = buyerService.findByCredential(credential);
 
-        List<CartItem> cartItemList = cartService.findByCart(buyer.getCart());
-        model.addAttribute("cartItemList", cartItemList);
+         Cart cart=cartService.findById(cartId);
 
-//         Cart cart=user.getBuyer().getCart();
-        Cart cart = buyer.getCart();
+
+        model.addAttribute("cartItemList", cart.getCartItems());
+
+
 
         Orders order = orderService.createOrder(cart, billingAddress, buyer);
 
-//          StringBuilder stringBuilder=null;
-//        for(Orders orders: orderService.findAll()){
-//              if(orders.getBuyer().getId()==buyer.getId())
-//             stringBuilder.append(orders.getId());
-//        }
+
         model.addAttribute("order_id", order.getId());
         emailNotification.sendEmail(principal.getName(), "Thank you for shopping on our book store. We hope you had a good time with our service!",
-                "ordernumber" + order.getId());
+              "ordernumber" + order.getId());
         cartService.clearCart(cart);
 
         LocalDate today = LocalDate.now();

@@ -28,7 +28,7 @@ public class Product {
      private int quantity;
      private double unitPrice;
     private double discountPrice;
-    @Size(max = 20,message = "{fooCommand.textField.max.message}")
+    @Size(max = 100,message = "{fooCommand.textField.max.message}")
     @NotEmpty
     private String description;
     @Transient

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface OrderService {
     public Orders createOrder(Cart cart, BillingAddress billingAddress, Buyer buyer);
-    public List<Orders> findAll();
+    public List<Orders> findByBuyer(Buyer buyer);
 }

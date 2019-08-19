@@ -1,5 +1,6 @@
 package waa.edu.onlineshopping.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerator;
@@ -19,16 +20,16 @@ public class CartItem {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private int quantity;
-    @JsonIgnore
+
     @OneToOne
     private Product product;
     private double totalPrice;
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="cart_cartitem_id")
     private Cart cart;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="order_id")
     private Orders order;

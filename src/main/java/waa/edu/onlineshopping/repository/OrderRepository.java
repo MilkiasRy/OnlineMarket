@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends CrudRepository<Orders,Long> {
 
-        //List<Orders> findB(Buyer buyer);
+        List<Orders> findByBuyer(Buyer buyer);
 }

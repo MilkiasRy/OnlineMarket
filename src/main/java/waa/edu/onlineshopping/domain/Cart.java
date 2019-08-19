@@ -1,5 +1,6 @@
 package waa.edu.onlineshopping.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -20,13 +21,14 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @JsonManagedReference
    // @Cascade(CascadeType.ALL)
-    @OneToMany(mappedBy="cart",  fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="cart",  fetch=FetchType.EAGER)
     @JsonIgnore
     private List<CartItem> cartItems;
 
-
-    @JsonManagedReference
+     @JsonIgnore
+    @JsonBackReference
     @Cascade({CascadeType.ALL})
     @OneToOne(fetch = FetchType.LAZY)
     private Buyer buyer;

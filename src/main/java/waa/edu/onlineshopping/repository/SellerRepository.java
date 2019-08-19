@@ -10,7 +10,7 @@ import waa.edu.onlineshopping.domain.Seller;
 @Repository
 public interface SellerRepository extends CrudRepository<Seller, Long> {
 
-             Seller findBySubscribedBuyers(Buyer buyer);
+    Seller findBySubscribedBuyers(Buyer buyer);
     public Seller findByCredential(Credential credential);
 
 }

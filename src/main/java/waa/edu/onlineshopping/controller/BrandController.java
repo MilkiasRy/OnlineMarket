@@ -60,9 +60,10 @@ public class BrandController {
     public @ResponseBody Boolean unfollowBuyer(@PathVariable("id") Long id,Principal principal){
         Credential credential = credentialService.findByEmail(principal.getName());
         Buyer buyer = buyerService.findByCredential(credential);
-        Seller seller=sellerService.findBySubscribedBuyers(buyer);
-        seller.removeBuyer(buyer);
-        sellerService.save(seller);
+       // Seller seller=sellerService.findBySubscribedBuyers(buyer);
+          Seller seller=sellerService.findById(id);
+           seller.removeBuyer(buyer);
+          sellerService.save(seller);
         System.out.println("************************Buyer deleted");
         //seller.addBuyer(buyer);
         return false;

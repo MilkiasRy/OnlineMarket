@@ -34,17 +34,14 @@ public class OrderServiceImpl implements OrderService {
 
 
 
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
        Orders order=new Orders();
         order.setStatus(false);
         order.setBuyer(buyer1);
         order.setOrderdate(LocalDate.now());
         order.setOrderTotal(cart.getGrandTotal());
 
-        System.out.println("++++++++++++++++++++++++cartItem++++++++++++++++++++++++++++++++++++++++");
-
         List<CartItem> cartItemList =cartService.findByCart(buyer.getCart());
-        System.out.println("before order ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
         for(CartItem cartItem : cartItemList) {
             Product product = cartItem.getProduct();
             cartItem.setOrder(order);
@@ -52,17 +49,17 @@ public class OrderServiceImpl implements OrderService {
 
              cartItemRepository.save(cartItem);
         }
-           //order.setCartItemList(cartItemList);
+
+        Orders order1=orderRepository.save(order);
 
 
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
-        System.out.println("sucessfull ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        return order;
+        return order1;
     }
 
     @Override
-    public List<Orders> findAll() {
-        return (List<Orders>)orderRepository.findAll();
+    public List<Orders> findByBuyer(Buyer buyer) {
+
+        return orderRepository.findByBuyer(buyer);
     }
 }

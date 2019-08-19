@@ -43,7 +43,7 @@ public class Buyer {
      @Valid
     @OneToOne(cascade = CascadeType.ALL)
     private Payment payment;
-     @JsonBackReference
+   //  @JsonBackReference
     @OneToOne(mappedBy = "buyer")
     //@JoinColumn
     private Cart cart;

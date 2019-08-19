@@ -19,4 +19,6 @@ public interface CartService {
 
      public void clearCart(Cart cart);
 
+    public Cart findById(Long id);
+
 }

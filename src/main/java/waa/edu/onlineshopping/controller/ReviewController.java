@@ -78,6 +78,8 @@ public class ReviewController {
         Seller seller = sellerService.findByCredential(credential);
         return reviewService.findReviewBySeller(seller);
     }
+
+
          @GetMapping("/seller/review")
     public String getReview(){
            return "seller/review";

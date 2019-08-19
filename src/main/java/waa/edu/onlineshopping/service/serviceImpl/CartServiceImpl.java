@@ -110,4 +110,9 @@ public class CartServiceImpl implements CartService {
 
     }
 
+
+    @Override
+    public Cart findById(Long id) {
+        return cartRepository.findById(id).orElseThrow(()->new IllegalArgumentException("Not Found"+id));
+    }
 }
